@@ -1,0 +1,24 @@
+:root {
+  color-scheme: dark;
+  --color-canvas: #000000;
+  --color-surface: #141412;
+  --color-ink: #f2efe7;
+  --color-muted: #b4b0a6;
+  --color-gold: #f0c332;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+  --text-body: 1.125rem;
+  --text-display: clamp(3rem, 9vw, 7.5rem);
+  --text-heading: clamp(2.25rem, 5vw, 4.5rem);
+  --leading-body: 1.6;
+  --leading-display: 1.02;
+  --tracking-display: -0.035em;
+  --space-gutter: clamp(1.5rem, 4.45vw, 4rem);
+  --space-section: clamp(5rem, 11.12vw, 10rem);
+  --space-small: 1rem;
+  --space-medium: 1.5rem;
+  --space-large: 2.5rem;
+  --width-page: 90rem;
+  --width-prose: 65ch;
+  --duration-feedback: 160ms;
+}
