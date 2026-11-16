@@ -1,6 +1,6 @@
 # Askold — proposed design direction
 
-Updated: 2026-11-15. Milestone 1 direction for creative review. No finished homepage, hero implementation or visual QA is claimed.
+Updated: 2026-11-16. The established direction now extends through the Milestone 3 commercial pages. The sculpture hero is preserved; its scroll timing is not finally approved and additional polish remains open. Full release review remains Milestone 4; earlier hero review scope is in `QA_REPORT.md`.
 
 ## The idea
 
@@ -76,6 +76,8 @@ Services / collaboration / process / about / contact
 
 No essential action waits for the video to finish. All page content exists in document flow without animation initialization. Final mobile crop and copy position depend on decoded-frame inspection in Milestone 2; avoid covering the bonsai with text or imposing a long scroll hold on a small screen.
 
+Desktop scale refinement (2026-11-16): at widths ≥1024px, reserve the measured header height plus 16px above the sculpture. Center the original portrait within the remaining space and size its frame to 115% of that available height to compensate for internal black margins. Keep the viewport's right gutter and right-aligned desktop navigation. There is no minimum-height condition, so shorter/zoomed desktop windows receive the same treatment. Focused Chrome checks at 1264×559, 1440×600 and 1440×900 confirm the clear navigation band, complete sculpture/bonsai and no horizontal overflow; the 390×667 mobile layout and scroll timing remain unchanged.
+
 ## Motion and signature preservation
 
 Canonical source: `public/intro.mp4` in the read-only reference. Its AVC1 container declares 480×720 and 1.015 seconds; source code seeks to `2 * progress`. The 205vh trigger includes a 105vh sticky hold, which ends around 51.2% progress (1.024s requested playback). This suggests the apparent duration mismatch may intentionally align the film's end with sticky release. Verify decoded frames and live pacing before normalizing the timeline; do not call this a proven bug or describe the 2-second code range as the clip duration.
@@ -101,3 +103,13 @@ Use a 12-column desktop frame and simpler tablet/mobile grids. Alternate project
 Semantic landmarks, one h1, hierarchical section headings, skip link, visible focus, native links/buttons, explicit media dimensions, descriptive alt text and dark color scheme are foundation requirements. Later forms require persistent labels, useful autocomplete, server validation and accessible submission status. The future nav must not obscure focused controls or anchor destinations.
 
 Routes, internal links and localization decisions are in `PROJECT_PLAN.md`. This proposal is ready for creative review; browser composition, contrast measurement and actual hero fidelity remain later verification work.
+
+## Milestone 3 application
+
+Use the real interfaces as the proof: iLab is the largest homepage feature and first work item; Frio Estrella and Latvir form an unequal, offset pair. FixMobile and SeoQuill extend the work index with original project materials. New sections reuse the black/gold palette, Cormorant display type, Inter body type, equal 24–64px gutters and open typographic service rows. No new artwork, generic laptop shells, icon grids or background video loops were added.
+
+Case pages lead with a short summary and authentic project image, then the longer introduction and industry/scope facts. This keeps the image early on mobile without cutting useful context. The iLab narrative has greater depth, separate repair/shop imagery, a contained portrait capture and verified service-site SEO explanations. Original archive images retain their identity as earlier project material. Qualitative outcomes complete each case without empty analytics panels.
+
+Services explain the business use, deliverables and relevant project evidence. The contact page offers a short email-draft form alongside direct email and WhatsApp; wording clearly distinguishes opening a draft from sending it. Additional movement is limited to existing interaction feedback, preserving the sculpture as the signature sequence.
+
+Designer specifications were supplied through the orchestrator's document/skill relay; the Designer did not independently inspect rendered pages. Explorer performed bounded read-only source research, Implementer edited application code directly, and the orchestrator captured public media and performed limited development checks. No Milestone 3 QA agent or full visual/a11y/performance audit was run.

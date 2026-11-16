@@ -2,13 +2,15 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { getContent, defaultLocale } from "@/lib/i18n";
 import "./globals.css";
+import "./commercial.css";
+import { siteIndexable, siteOrigin } from "@/lib/seo";
 
 const content = getContent();
 export const metadata: Metadata = {
   title: content.site.title,
   description: content.site.description,
-  // M1 is a development foundation. Change explicitly at release readiness.
-  robots: { index: false, follow: false },
+  metadataBase: new URL(siteOrigin),
+  robots: { index: siteIndexable, follow: siteIndexable },
 };
 export const viewport: Viewport = {
   width: "device-width", initialScale: 1, viewportFit: "cover",

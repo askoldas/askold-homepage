@@ -89,10 +89,47 @@ Only required preservation assets are copied now:
 | `public/media/hero/intro.mp4` | `public/intro.mp4` | Byte-for-byte canonical copy; not loaded by foundation page |
 | `public/brand/as-logo.svg` | `public/as-logo.svg` | Byte-for-byte copy; available for later nav |
 
-Do not mass-copy historical videos or whole project galleries. Copy selected case media during implementation, preserve originals and generate optimized derivatives only here. Extract poster/final frame from the canonical film after decoded inspection; verify any re-encode keeps frame order, color and seekability. The 480×720 source may soften when enlarged; assess fidelity before selecting a higher-resolution source. No replacement or AI recreation is authorized by this manifest.
+Do not mass-copy historical videos or whole project galleries. Copy selected case media during implementation, preserve originals and generate optimized derivatives only here. The 480×720 source may soften when enlarged. No replacement or AI recreation is authorized by this manifest.
+
+### Milestone 2 verification and derivatives
+
+The copied MP4 is now used by the hero and still matches the canonical SHA-256. Actual browser decoding verified 480×720, duration 1.014925s, intact marble → breakup → bonsai. Container tables contain 68 samples at 256 ticks with timescale 17152 (67fps), and one sync frame. Browser `currentTime` seeking was tested forward/reverse; no video re-encode was required.
+
+| New destination | Bytes | Derivation |
+| --- | ---: | --- |
+| `public/media/hero/sculpture-poster.webp` | 107,724 | Original decoded frame at 0s; normal/no-JS opening |
+| `public/media/hero/bonsai-poster.webp` | 150,860 | Original decoded frame at 1.009925s; reduced-motion/error fallback |
+
+Both are 480×720 lossless WebP encodings. Decoded RGBA buffers were compared against the extracted PNG frames and are identical. Temporary PNGs are not shipped. The film itself remains 132,425 bytes and unmodified. No standalone tree/column image or generated artwork was substituted. The copied SVG is retained; this milestone uses a typographic Askold header wordmark.
 
 Typography source: reference `src/app/layout.tsx` uses Inter and Cormorant Garamond from Google with weights 400/500/600. Foundation uses corresponding local Fontsource packages and included font licenses, not copied browser caches.
 
 ## Contact integration
 
 Verified in `src/components/sections/ContactSection.tsx`: `makrikovas@gmail.com`, `+371 28878495`, `https://wa.me/37128878495`, `https://t.me/Askoldas`. `src/app/contact/ContactForm.tsx` only clears fields after a timeout; there is no fetch/API/mail provider in that form. A reference to Firebase in a project description is not a contact integration. The foundation may use the existing native mailto link; a future form needs a real provider and delivery checks.
+
+## Milestone 3 — selected authentic project media
+
+Captured on 2026-11-16 with the installed Chrome/CDP helper. Desktop viewport: 1440×1000, device scale 1. Mobile viewport: 390×844, device scale 2 (780×1688 image). Public pages only; no login, private administration, customer or account screens. Consent banner rejection was used where available. Screenshots preserve the real interface, including its own business claims; those claims are not Askold website-performance results.
+
+All destinations below are under `public/media/work/`. Raw capture PNGs stay in the ignored local working folder. WebP derivatives use quality 86; no fabricated screens or new device mockups were generated.
+
+| Destination | Source / view | Image dimensions |
+| --- | --- | --- |
+| `ilab-desktop.webp` | https://ilab.lv/ — opening | 1440×1000 |
+| `ilab-mobile.webp` | https://ilab.lv/ — mobile opening | 780×1688 |
+| `ilab-service.webp` | https://ilab.lv/iphone-remonts — service page | 1440×1000 |
+| `ilab-shop.webp` | https://ilab.lv/shop — shop opening | 1440×1000 |
+| `ilab-shop-finder.webp` | https://ilab.lv/shop — `#part-finder` | 1440×1000 |
+| `frio-desktop.webp` | https://frioestrella.com/ — opening | 1440×1000 |
+| `frio-mobile.webp` | https://frioestrella.com/ — mobile opening | 780×1688 |
+| `frio-calculator.webp` | https://frioestrella.com/ — estimate calculator section | 1440×1000 |
+| `latvir-desktop.webp` | https://www.latvir.lv/ — opening | 1440×1000 |
+| `latvir-mobile.webp` | https://www.latvir.lv/ — mobile opening | 780×1688 |
+| `fixmobile-overview.webp` | Reference `public/projects/fixmobile/webpage.jpg`; existing authored project composition, resized | 1600×1600 |
+| `fixmobile-product.webp` | Reference `public/projects/fixmobile/product-page.jpg`; resized | 1600×608 |
+| `seoquill-overview.webp` | Reference `public/projects/quill/Home.jpg` | 600×2314 |
+| `seoquill-cover.webp` | Same original homepage, top 600×500 crop for project previews | 600×500 |
+| `seoquill-order.webp` | Reference `public/projects/quill/orderform.jpg`; resized | 1600×2436 |
+
+Explorer confirmed no accessible sibling iLab source repository: only the two Askold repositories exist in the bounded parent inventory. The new iLab material closes the earlier public-screenshot gap; implementation/transaction claims remain limited to owner-supplied scope and observed public functionality. Source files were read without modification. No additional project video loops, stock imagery, portrait, client endorsements or tool-logo wall were introduced.

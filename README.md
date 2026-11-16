@@ -22,14 +22,18 @@ npm run start
 
 Commit the generated `package-lock.json` to pin dependency versions. Fonts are served locally through Fontsource packages, which include their license files.
 
-## Milestone 1 boundary
+## Milestone 3 boundary
 
-The root page is a restrained typography and spacing foundation. The signature sculpture/bonsai animation, navigation, homepage sections, portfolio routes, case studies, and contact integration belong to later milestones.
+The homepage contains the preserved sculpture/bonsai hero followed by business value, featured iLab work, additional projects, six services, collaboration principles, process, about and contact. The hero uses its approved local sticky scroll scene and original media; reduced motion uses a matching still without loading the video.
+
+Routes: `/`, `/work`, `/services`, `/contact` and `/work/{ilab,frio-estrella,latvir,fixmobile,seoquill}`. Project content is maintained in `src/content/projects.ts`, services in `src/content/services.ts`. Real public project captures and original portfolio media are documented in `docs/ASSET_MANIFEST.md`.
+
+Milestone 3 uses TypeScript, lint, production build and targeted development checks only. The full visual/accessibility/performance review belongs to Milestone 4. Earlier hero review records remain in `docs/QA_REPORT.md`.
 
 English is active. Latvian and Russian are planned; no language selector or translated routes are exposed.
 
-Project results are optional and require dated source evidence, a metric definition, units, and publication approval. No analytics or client metrics are assumed. The existing public email, `makrikovas@gmail.com`, is sourced from the reference repository's `ContactSection.tsx`. Contact uses a native mailto link; there is no delivery backend.
+Project results are optional and require dated source evidence, a metric definition, units and publication approval. No sample metrics are published. Contact uses the verified `makrikovas@gmail.com` and WhatsApp details. The inquiry form opens an encoded email draft with copy/select fallback; it does not submit, store or report delivery of an inquiry. There is no delivery backend or analytics provider.
 
-Robots metadata deliberately disables indexing and following during development. Release preparation must explicitly review this setting and establish production URL metadata.
+Metadata, canonicals, social previews, JSON-LD, sitemap and robots are implemented. `SITE_INDEXABLE` defaults to false: robots disallows crawling and page metadata uses noindex/nofollow. Enabling it with `SITE_INDEXABLE=true` is a build-time release decision for Milestone 4, not authorization to deploy. Canonical URLs use the intended `https://askold.me` origin; no hosting or DNS was changed.
 
 The reference repository is read only. Do not change production hosting or DNS.

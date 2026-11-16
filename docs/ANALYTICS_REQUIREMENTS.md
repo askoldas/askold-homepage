@@ -1,6 +1,6 @@
 # Analytics and project evidence
 
-Updated: 2026-11-15. No analytics provider is configured in the new app. No private analytics, Search Console or transaction data was accessed.
+Updated: 2026-11-16. No analytics provider is configured in the new app. No private analytics, Search Console or transaction data was accessed. Milestone 3 prepares conditional results presentation without publishing sample figures.
 
 ## Evidence status
 
@@ -49,3 +49,27 @@ If a contact form is chosen, require server-side validation, abuse/rate controls
 ## Release decisions outstanding
 
 Owner must confirm public iLab scope, result publication permission and preferred contact method. Select analytics/contact providers and approved production origin before release. Keep milestones progressing with verified content while these are pending; do not fabricate missing evidence.
+
+## Milestone 3 evidence and integration decisions
+
+The owner supplied iLab's project scope in the Milestone 3 brief: custom design/development, service and SEO architecture, device/model navigation, catalog/shop, custom administration, responsive implementation and optimization. Public captures on 2026-11-16 confirm repair/service navigation, specific repair pages, device/model/part browsing and compatibility information. Private administration is not photographed or independently inspected. Public inquiry/price-unavailable states do not establish payment, order or authentication correctness.
+
+Public HTML verifies service-site canonical URLs, titles/descriptions, Latvian/Russian alternate-language links, and Organization/WebSite/LocalBusiness/WebPage/BreadcrumbList/FAQ structured data; the inspected iPhone service page additionally contains Service/OfferCatalog/HowTo/ItemList markup. No equivalent shop language/structured-data claim is established. No ranking or rich-result eligibility is inferred from markup.
+
+Frio Estrella and Latvir descriptions use current public interfaces. FixMobile and SeoQuill descriptions and imagery use the original portfolio archive. No launch dates, years of Askold experience, client testimonials, revenue, sales or growth percentages were invented.
+
+The reusable result contract requires a metric definition, label, value/unit, reporting period, source evidence, verification date and explicit publication approval; an optional baseline supports comparisons. Empty results render no public section. The public case narrative is complete through delivered functionality and authentic media.
+
+Before populating results, supply approved aggregate data:
+
+| Presentation | Required input |
+| --- | --- |
+| Search clicks / impressions | Search Console property, exact date range, search type, country/device/page/query filters and export reference |
+| Organic traffic | GA4 property, source/medium or default-channel definition, sessions/users choice, date range/timezone and exclusions |
+| Engagement | Named measure (engaged sessions, engagement rate or engagement time), its denominator/unit and reporting context |
+| Verified conversions | Specific key-event definition and counting method; confirmed delivery/business acceptance where relevant; attribution limits |
+| Before / after | Comparable windows, absolute values/units for each window, change date and relevant campaign/seasonality changes |
+
+Contact is an email-draft workflow, not a submission service. The short form opens the visitor's email application and offers a copyable draft fallback; no inquiry is stored, logged, sent to analytics or falsely marked delivered. Native email and WhatsApp links remain available. A future provider still requires server validation, rate/abuse limits, secret handling, privacy/retention decisions and a real acceptance check before any sent confirmation or conversion event can be enabled. A mailto or WhatsApp activation remains an intent signal only. No provider credentials are needed for the Milestone 3 fallback.
+
+Analytics collection remains disabled. M4 must review consent/provider choices, production indexing, real delivery integration if requested and evidence publication. Public project screenshots are not GA4/Search Console reporting data.
