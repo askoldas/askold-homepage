@@ -14,7 +14,15 @@ Updated: 2026-11-15. Paths below are relative to the read-only `../askold-cv-ref
 
 Canonical SHA-256: `220C78FB30E11B79BF5422C0BDF51B15C3AF8BB6B3D1A763C41C7B1E8EE4CCF5`.
 
-MP4 metadata was read directly from container headers using a read-only Node parser; no ffprobe/frame decoder was available. It does not prove visual contents, frame rate, color profile or browser seek behavior. Milestone 2 must inspect decoded frames and the live scroll sequence. Do not treat the source code's 2-second seek constant as the actual media duration.
+MP4 metadata was initially read directly from container headers using a read-only Node parser. Later hero passes decoded frames in Chrome and inspected actual seeking; see the selection update below. Do not treat the reference code's 2-second seek constant as the actual media duration.
+
+### Non-vignetted hero selection — 2026-11-20
+
+The current hero uses an unchanged copy of `public/intro-orig.mp4` at destination `public/media/hero/intro-original.mp4`, superseding the vignetted `intro.mp4` selection above. Verified: 169,824 bytes, AVC1, 480×720, 1.014925s, 68 samples at 67fps, one sync sample (frame 1). SHA-256: `f2269f983683b6c67b61b24f27734d6a5531decdf879d817a3c901f333fd0d86`. It is not an all-I-frame encode; the existing readiness-gated, coalesced exact seek mechanism is retained.
+
+Chrome-decoded initial, middle and final frames confirm the same left-facing sculpture, breakup and bonsai reveal as `intro.mp4`, without its vignette. `intro-marble.mp4` and `intro-old.mp4` are right-facing variants with additional markings and are not selected. The original non-vignetted background retains its authored texture; no artificial frame, mask, gradient or image filter is applied.
+
+Both existing fallback posters were regenerated from the selected clip at 0.005s and duration minus 0.005s, at native 480×720, using unfiltered WebP quality 0.94: `sculpture-poster.webp` 35,426 bytes and `bonsai-poster.webp` 38,402 bytes. Original files in the reference repository remain untouched. Decoded comparison frames are local, Git-ignored review evidence under `.taste-skill/hero-targeted-2026-11-20/`.
 
 ## Hero implementation inventory
 
