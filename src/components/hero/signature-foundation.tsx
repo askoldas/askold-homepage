@@ -200,7 +200,9 @@ function SignatureHero() {
             ? area.height * (window.innerHeight < 620 ? 1.35 : 1.65)
             : Math.min(finalHeight * 1.38, area.width * 720 / 340 * 0.94);
           framing.openingScale = finalHeight > 0 ? openingHeight / finalHeight : 1;
-          const openingHeadroom = viewportHeight * (compact.matches ? 0.06 : 0.12);
+          const openingHeadroom = desktop && !compact.matches
+            ? Math.min(viewportHeight * 0.12, Math.max(48, Math.min(96, 156 - viewportHeight * 0.06)))
+            : viewportHeight * (compact.matches ? 0.06 : 0.12);
           const canopyClearance = compact.matches ? 12 : 24;
           const currentTopGap = openingHeight * (ARTWORK_SOURCE_TOP / 720 - 0.06);
           const framingOffset = Math.max(0, openingHeadroom + canopyClearance - currentTopGap);

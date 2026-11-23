@@ -126,7 +126,7 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
-  .hero[data-failed="false"]:not([data-overflow]) .artworkMotion { --opening-height: 165cqh; --opening-headroom: 12svh; --canopy-clearance: 24px; }
+  .hero[data-failed="false"]:not([data-overflow]) .artworkMotion { --opening-height: 165cqh; --opening-headroom: min(12svh, clamp(48px, calc(156px - 6svh), 96px)); --canopy-clearance: 24px; }
 }
 @media (prefers-reduced-motion: no-preference) and (min-width: 761px) and (max-width: 1023px) and (min-height: 621px) {
   .hero[data-failed="false"]:not([data-overflow]) .artworkMotion { --opening-headroom: 12svh; --canopy-clearance: 24px; }
