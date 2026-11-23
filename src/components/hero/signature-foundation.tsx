@@ -277,7 +277,7 @@ function SignatureHero() {
       // Normal-flow mobile needs no post-pin hash correction on a later rotation.
       initialAnchorRestored.current = true;
       const cleanupMobile = mobileFirstScroll({ media, wrapper, firstLine: lineOne, secondLine: lineTwo,
-        state: mobileReveal.current, greeting: GREETING, idea: IDEA, bonsai: BONSAI,
+        state: mobileReveal.current, greeting: GREETING, idea: IDEA, bonsai: BONSAI, sculpture: SCULPTURE,
         decoded: setDecoded, failed: () => { setFailed(true); setDecoded(false); } });
       return () => { cleanupMobile(); cleanupLayout(); };
     }
