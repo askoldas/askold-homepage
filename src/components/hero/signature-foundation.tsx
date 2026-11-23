@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./signature-foundation.module.css";
 
-const EMAIL = "/contact";
+const EMAIL = "/#contact";
 const WORK = "/work";
 const SCULPTURE = "/media/hero/sculpture-poster.webp";
 const BONSAI = "/media/hero/bonsai-poster.webp";
@@ -65,7 +65,7 @@ export function Header() {
     </>;
   }
   return <header className={styles.header} ref={header}>
-    <Link className={styles.brand} href="/" aria-label={"Askold \u2014 homepage"}>Askold</Link>
+    <Link className={styles.brand} href="/" aria-label="ASKOLD.ME homepage">ASKOLD.ME</Link>
     <nav className={`${styles.navigation} ${styles.desktopNavigation}`} aria-label="Main navigation">{links()}</nav>
     <details className={styles.mobileNavigation} ref={disclosure}>
       <summary className={styles.menu} ref={summary}>Menu <span aria-hidden="true">+</span></summary>
@@ -417,7 +417,7 @@ function SignatureHero() {
             <a className={styles.link} href={WORK}>View work <span aria-hidden="true">&#8599;</span></a>
           </div>
         </div>
-        <a className={styles.skipAnimation} href="#approach" onClick={continueHero} aria-label="Continue to website content"><span aria-hidden="true">&#8595;</span></a>
+        <a className={styles.skipAnimation} href="#approach" onClick={continueHero} aria-label="Continue to website content"><svg viewBox="0 0 24 36" width="24" height="36" aria-hidden="true" focusable="false"><path d="M12 4v27m-6-6 6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
         <div className={styles.artwork} ref={artwork} aria-hidden="true">
           <div className={styles.artworkMotion} ref={artworkMotion}>
           <picture>
@@ -427,6 +427,7 @@ function SignatureHero() {
           </picture>
           {motion && !failed ? <video ref={video} className={styles.video} data-decoded={decoded} src="/media/hero/intro-original.mp4" poster={SCULPTURE} preload="auto" muted playsInline disablePictureInPicture tabIndex={-1} /> : null}
           </div>
+          <div className={styles.openAccents} aria-hidden="true"><span className={styles.verticalAccent} /><span className={styles.horizontalAccent} /></div>
         </div>
         </div>
       </div>

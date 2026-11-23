@@ -1,0 +1,16 @@
+.chapter { background: #211d17; color: #f2efe7; padding-block: clamp(80px, 9vw, 128px); scroll-margin-top: 100px; }
+.chapter h2 { font-family: var(--font-editorial); font-size: clamp(64px, 8.3vw, 120px); line-height: .94; letter-spacing: -.035em; font-weight: 400; }
+.composition { display: grid; grid-template-columns: 7fr 5fr; align-items: end; gap: 48px; margin-top: 48px; }
+.identityMask { display: block; overflow: clip; }
+.identity { display: block; font-size: clamp(180px, 30vw, 430px); font-weight: 500; line-height: .8; letter-spacing: -.08em; white-space: nowrap; }
+.statement h3 { font-size: 22px; font-weight: 500; line-height: 1.3; }
+.statement p { margin-top: 24px; font-size: 18px; max-width: 43ch; }
+.statement .role { margin-top: 8px; }
+.chapter .statement a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 28px; font-size: 16px; text-decoration: underline; }
+.chapter .statement a:hover { color: #f0c332; text-decoration: underline; }
+@media (max-width: 767px) {
+  .chapter h2 { font-size: clamp(56px, 13vw, 80px); }
+  .composition { grid-template-columns: 1fr; gap: 48px; margin-top: 56px; }
+  .identity { font-size: min(64vw, calc((100vw - 48px) * .58)); }
+  .statement p { font-size: 17px; }
+}

@@ -1,5 +1,17 @@
-export const services = [
+export interface Service {
+  id: string;
+  title: string;
+  summary: string;
+  detail: string;
+  deliverables: readonly string[];
+  fit: string;
+  project: string;
+  relatedProjects?: readonly string[];
+}
+
+export const services: readonly Service[] = [
   { id: "design", title: "Web design & redesign", summary: "A clear, distinctive website that makes your business easy to understand.", detail: "Turn a new idea or an outdated site into a considered experience. Start with your audience, content and priorities, then shape the structure, typography and interfaces around them.", deliverables: ["Website structure and content priorities", "Visual direction and responsive interface design", "Clear inquiry and purchase paths"], fit: "For a new business, a changing offer or a website that no longer reflects your work.", project: "ilab" },
+  { id: "brand-identity", title: "Brand identity & visual design", summary: "Create a recognizable, cohesive visual identity that brings your business to life across digital and physical touchpoints.", detail: "Shape a new identity or refine what already exists. Bring the logo, typography, color and supporting materials together so your business feels consistent across its website, packaging and everyday communications.", deliverables: ["Logo design and refinement", "Visual identity systems", "Typography and color palettes", "Brand assets and guidelines", "Digital and print marketing materials"], fit: "For a new business, a changing brand or visual materials that need a more consistent direction.", project: "masterbean", relatedProjects: ["fixmobile", "btx-outlet"] },
   { id: "development", title: "Custom web development", summary: "A website built around the way your business works.", detail: "Bring design and functionality together in a maintainable build. From service websites to tailored integrations, the implementation should support the content and the people using it.", deliverables: ["Responsive website implementation", "Content and integration planning", "Accessible interactions and launch preparation"], fit: "For businesses that need more control than a generic template can offer.", project: "frio-estrella" },
   { id: "ecommerce", title: "E-commerce", summary: "Make products easier to find, understand and choose.", detail: "Organize a complex catalog or create a focused online shop. Plan product information, category navigation and buying journeys together, with the actual business requirements guiding the scope.", deliverables: ["Catalog and category architecture", "Product discovery and detail interfaces", "Commerce integrations scoped to your operation"], fit: "For a new shop, a growing catalog or a difficult product selection process.", project: "ilab" },
   { id: "applications", title: "Web applications", summary: "Useful tools for the tasks a standard website cannot handle.", detail: "Translate a specific workflow into a usable web interface. Define the information, permissions and everyday tasks first, then build the functionality that matters.", deliverables: ["Workflow and interface planning", "Custom interactive functionality", "Maintainable implementation and handover"], fit: "For ordering tools, client portals, dashboards and internal business systems.", project: "seoquill" },

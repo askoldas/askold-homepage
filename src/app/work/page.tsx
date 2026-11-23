@@ -1,9 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/content/projects";
-import { PageShell, ContactInvitation } from "@/components/site/site-shell";
-import { ProjectMedia } from "@/components/work/project-media";
+import { workProjects } from "@/content/projects";
+import { workCategories } from "@/content/work-categories";
+import { ArtPageHeading } from "@/components/work/art-page-heading";
+import { PageShell } from "@/components/site/site-shell";
+import { PageInquiry } from "@/components/interior/page-inquiry";
 import { pageMetadata } from "@/lib/seo";
-export const metadata = pageMetadata("Selected work", "Explore iLab, FRIO ESTRELLA, LATVIR and selected original design and development work by Askold Makrikov.", "/work");
-export default function WorkPage() {
-  return <PageShell><div className="page-heading container"><h1>Work you can<br />look into.</h1><p>Different businesses, different requirements. Selected websites and interfaces, with the thinking and scope behind them.</p></div><section className="work-index container" aria-label="Selected projects">{projects.map((project, index) => <article key={project.id} className={index === 0 ? "work-feature" : ""}><Link className="media-link" href={`/work/${project.slug}`}><ProjectMedia image={project.cover} priority={index === 0} /></Link><div className="project-caption"><h2><Link href={`/work/${project.slug}`}>{project.title}</Link></h2><div><p>{project.summary}</p><p className="muted-copy">{project.scope}</p><Link className="text-link" href={`/work/${project.slug}`}>View project</Link></div></div></article>)}</section><ContactInvitation /></PageShell>;
+import styles from "./page.module.css";
+
+export const metadata = pageMetadata("Selected work", "Explore websites, e-commerce, brand identities and creative projects by independent designer and developer Askold Makrikov.", "/work");
+
+export default async function WorkPage({ searchParams }: { searchParams: Promise<{ discipline?: string }> }) {
+  const query = await searchParams;
+  const category = workCategories.find(item => item.id === query.discipline) || workCategories[0];
+  const selected = category.id === "all" ? workProjects : workProjects.filter(project => (category.projects as readonly string[]).includes(project.id));
+  const flagship = selected.find(project => project.id === "ilab");
+  const collection = selected.filter(project => project.id !== flagship?.id);
+  return <PageShell><ArtPageHeading kind="work" /><section className={`container ${styles.index}`} id="project-index" aria-label="Project collection">
+    <nav className={styles.navigation} aria-label="Project categories">{workCategories.map(item => <Link key={item.id} href={item.id === "all" ? "/work#project-index" : `/work?discipline=${item.id}#project-index`} aria-current={category.id === item.id ? "page" : undefined}>{item.title}</Link>)}</nav>
+    {flagship ? <article className={styles.flagship}><div className={styles.flagshipHeading}><h2>{flagship.title}</h2><p>{flagship.summary}</p></div><div className={styles.diptych}><Link href="/work/ilab" aria-label="Explore the iLab service website"><Image src={flagship.cover.src} alt={flagship.cover.alt} width={1440} height={1000} sizes="(max-width: 760px) 90vw, 60vw" /></Link><Link href="/work/ilab" aria-label="Explore the iLab parts catalog"><Image src="/media/work/ilab-shop.webp" alt="iLab repair-parts catalog and shop" width={1440} height={1000} sizes="(max-width: 760px) 75vw, 30vw" /></Link></div><div className={styles.flagshipCaption}><p>{flagship.scope}</p><Link href="/work/ilab">Explore the iLab case study</Link></div></article> : null}
+    <ul className={styles.collection}>{collection.map(project => <li key={project.id}><Link href={`/work/${project.slug}`} className={styles.project}><Image src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} sizes="(max-width: 760px) 90vw, 60vw" loading="lazy" /><h2>{project.title}</h2><p>{project.scope}</p></Link></li>)}</ul>
+    {!selected.length ? <p className={styles.empty}>Explore <Link href="/work#project-index">all selected projects</Link>.</p> : null}
+  </section><PageInquiry /></PageShell>;
 }

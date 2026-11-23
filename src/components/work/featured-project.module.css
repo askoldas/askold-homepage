@@ -1,0 +1,12 @@
+.composition { position: relative; padding-bottom: 63.6%; }
+.main, .shop { position: absolute; display: block; }
+.main { width: 82%; left: 0; top: 0; }
+.shop { width: 44%; right: 0; top: 52%; }
+.composition img { width: 100%; height: auto; display: block; }
+.composition a:focus-visible { outline-offset: 6px; z-index: 2; }
+.caseAction { margin-top: 28px; }
+@media (max-width: 760px) {
+  .composition { padding-bottom: calc(127.78% - 24px); }
+  .main { width: 100%; }
+  .shop { width: 84%; top: auto; bottom: 0; }
+}

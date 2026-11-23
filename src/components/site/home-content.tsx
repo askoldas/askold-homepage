@@ -1,19 +1,20 @@
 import Link from "next/link";
-import { projects } from "@/content/projects";
-import { services, processSteps } from "@/content/services";
-import { ProjectMedia } from "@/components/work/project-media";
-import { ContactInvitation } from "./site-shell";
+import { carouselProjects } from "@/content/projects";
+import { FeaturedProject } from "@/components/work/featured-project";
+import { ProjectCarousel } from "@/components/work/project-carousel";
+import { LowerHome } from "@/components/home/lower-home";
+import { HomeEntrances } from "@/components/home/home-entrances";
+import styles from "./home-content.module.css";
 
 export function HomeContent() {
-  const ilab = projects[0];
-  return <>
-    <section className="value-section container" id="approach" tabIndex={-1}><h2>Good design has<br />a job to do.</h2><div><p className="lead-copy">Help people understand your business. Make the next step clear. Give you a website you can keep building on.</p><p>I bring design and development together, from the first structure to the finished website. One person to work with, and a considered approach to the whole experience.</p><Link className="text-link" href="/services">Find the right service</Link></div></section>
-    <section className="featured-project container" aria-labelledby="featured-heading"><div className="section-intro"><h2 id="featured-heading">Built around<br />the real business.</h2><div><h3>{ilab.title}</h3><p>{ilab.summary}</p><Link className="text-link" href="/work/ilab">Explore the iLab case study</Link></div></div><Link className="media-link" href="/work/ilab" aria-label="View the iLab case study"><ProjectMedia image={ilab.cover} /></Link><div className="feature-note"><p>Repair services. Device navigation. A parts catalog.</p><p>Two related experiences, with a clear path for each visitor.</p></div></section>
-    <section className="selected-work container" aria-labelledby="selected-heading"><div className="section-intro"><h2 id="selected-heading">More work,<br />different challenges.</h2><Link className="text-link" href="/work">View all selected work</Link></div><div className="work-composition">{projects.slice(1, 3).map(project => <article key={project.id}><Link className="media-link" href={`/work/${project.slug}`}><ProjectMedia image={project.cover} /></Link><h3><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><p>{project.summary}</p></article>)}</div></section>
-    <section className="services-section container" aria-labelledby="services-heading"><div className="section-intro"><h2 id="services-heading">From a first idea<br />to what comes next.</h2><p>Commission a complete website or focused help with the part that needs attention.</p></div><div className="service-list">{services.map(service => <article key={service.id}><h3><Link href={`/services#${service.id}`}>{service.title}</Link></h3><p>{service.summary}</p></article>)}</div><Link className="text-link" href="/services">Explore services and deliverables</Link></section>
-    <section className="collaboration-section container"><h2>A direct line from<br />idea to implementation.</h2><div className="collaboration-points"><div><h3>Work directly with me</h3><p>The person shaping the design is also involved in the build. Questions and feedback reach the person doing the work.</p></div><div><h3>Decisions with a purpose</h3><p>Your audience, content and business priorities guide the interface. The work shown here gives you something concrete to assess.</p></div><div><h3>Continuity after launch</h3><p>The first release can be a starting point. Further development and support can follow what your business needs next.</p></div></div></section>
-    <section className="process-section container"><div className="section-intro"><h2>A clear process.<br />Room for good ideas.</h2><p>You know what we are deciding, when your input matters and what comes next.</p></div><ol className="process-list">{processSteps.map(step => <li key={step.title}><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol></section>
-    <section className="about-section container" id="about"><h2>Askold Makrikov.<br />Designer &amp; developer.</h2><div><p className="lead-copy">I connect the expressive side of design with the practical work of making websites function.</p><p>My work spans interface design, front-end development and motion. I like bringing the whole experience together: how a business presents itself, how people find what they need, and how the website supports that next step.</p><p>As an independent designer and developer, I stay directly involved from the first conversation through the build.</p><Link className="text-link" href="/contact">Let’s talk about your project</Link></div></section>
-    <ContactInvitation />
-  </>;
+  return <HomeEntrances className={styles.homeContent}>
+    <div className={styles.statement}>
+    <section className="value-section container" id="approach" tabIndex={-1}><h2 data-home-reveal="intro">Good design has<br />a job to do.</h2><div><p className="lead-copy" data-home-reveal="copy" data-reveal-order="0">Help people understand your business. Make the next step clear. Give you a website you can keep building on.</p><p data-home-reveal="copy" data-reveal-order="1">I bring design and development together, from the first structure to the finished website. One person to work with, and a considered approach to the whole experience.</p><Link className="text-link" href="/services">Find the right service</Link></div></section>
+    </div>
+    <div className={styles.proof}>
+    <FeaturedProject />
+    <section className="selected-work container" aria-labelledby="selected-heading"><div className="section-intro"><h2 id="selected-heading" data-home-reveal="selected">More work,<br />different challenges.</h2><Link className="text-link" href="/work">View all selected work</Link></div><ProjectCarousel projects={carouselProjects} /></section>
+    </div>
+    <LowerHome />
+  </HomeEntrances>;
 }

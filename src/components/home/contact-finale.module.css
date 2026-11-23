@@ -1,0 +1,44 @@
+.contact { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; padding: clamp(96px, 8vw, 128px) 0 64px; overflow-y: auto; overscroll-behavior: contain; background: #f0c332; color: #171612; color-scheme: light; }
+.contact::backdrop { background: #000; }
+.close { position: fixed; top: max(20px, env(safe-area-inset-top)); right: max(var(--space-gutter), env(safe-area-inset-right)); display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 8px 16px; border: 1px solid #171612; background: #f0c332; color: #171612; cursor: pointer; z-index: 1; }
+.close span { font-size: 26px; line-height: 1; }
+.close:hover { background: #171612; color: #f0c332; }
+.noScript { padding: 24px var(--space-gutter); background: #f0c332; color: #171612; }
+.noScript a { text-decoration: underline; }
+.contact h2 { font-family: var(--font-editorial); font-size: clamp(56px, 10.5vw, 152px); font-weight: 400; line-height: .92; letter-spacing: -.045em; text-wrap: balance; }
+.composition { display: grid; grid-template-columns: 5fr 1fr 6fr; gap: 32px; margin-top: clamp(56px, 5vw, 72px); align-items: start; }
+.details { grid-column: 1; }
+.details p { max-width: 35ch; font-size: 19px; }
+.contact .details a { color: #171612; display: flex; width: fit-content; min-height: 44px; align-items: center; text-decoration: underline; }
+.email { margin-top: 32px; font-size: clamp(22px, 2vw, 28px); overflow-wrap: anywhere; }
+.form { grid-column: 3; min-width: 0; }
+.contact .form label { font-size: 16px; margin-bottom: 8px; }
+.contact .form input, .contact .form select, .contact .form textarea { min-width: 0; border: 0; border-bottom: 1px solid #171612; background: transparent; color: #171612; border-radius: 0; padding: 10px 0; margin-bottom: 24px; min-height: 48px; font-size: 16px; }
+.contact .form textarea { min-height: 112px; }
+.contact .form textarea::placeholder { color: #4d421d; opacity: 1; }
+.contact .form option { color: #171612; background: #f0c332; }
+.contact .form :global(.form-pair) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.contact .form :global(.form-pair) > div { min-width: 0; }
+.contact .form :global(.form-note), .contact .form :global(.form-status), .contact .form :global(.draft-fallback) { color: #171612; font-size: 14px; }
+.contact .form :global(.text-link) { color: #171612; }
+.contact .form button[type="submit"] { min-height: 52px; background: #171612; color: #f0c332 !important; padding: 12px 24px; }
+.contact .form button[type="submit"]:hover { background: #000; }
+.contact .form :global(.form-status[data-success="true"]) { display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: start; gap: 12px; }
+.contact .form :global(.form-status[data-success="true"]) strong { display: block; font-size: clamp(18px, 2vw, 20px); line-height: 1.4; font-weight: 500; }
+.contact .form :global(.form-status[data-success="true"]) p { margin-top: 6px; font-size: 16px; line-height: 1.5; }
+.contact .form input:autofill { background-color: #f0c332; box-shadow: 0 0 0 1000px #f0c332 inset; -webkit-text-fill-color: #171612; caret-color: #171612; }
+.contact .form input:-webkit-autofill, .contact .form input:-webkit-autofill:hover, .contact .form input:-webkit-autofill:focus { background-color: #f0c332; box-shadow: 0 0 0 1000px #f0c332 inset; -webkit-text-fill-color: #171612; caret-color: #171612; }
+.contact .details a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.contact :focus-visible { outline: 2px solid #171612; outline-offset: 5px; }
+.contact .details a:focus-visible, .contact .form :focus-visible { outline: 2px solid #171612; outline-offset: 5px; }
+.contact:focus-visible { outline: 2px solid #171612; outline-offset: -8px; }
+.contact .form :global(.draft-fallback) textarea { min-height: 200px; }
+@media (max-width: 767px) {
+  .contact { padding-block: 96px 48px; }
+  .contact h2 { font-size: clamp(48px, 12vw, 80px); }
+  .composition { grid-template-columns: 1fr; gap: 48px; margin-top: 48px; }
+  .details, .form { grid-column: 1; }
+  .details p { font-size: 17px; }
+  .email { font-size: 18px; margin-top: 24px; }
+  .contact .form :global(.form-pair) { grid-template-columns: 1fr; gap: 0; }
+}

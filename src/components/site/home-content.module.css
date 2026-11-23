@@ -1,0 +1,17 @@
+.homeContent {
+  --chapter-black: #000000;
+  --chapter-charcoal: #11110f;
+  --chapter-bronze: #1b1915;
+  --chapter-near-black: #090909;
+}
+
+.statement { background: var(--chapter-charcoal); }
+.proof { background: var(--chapter-black); }
+
+.statement > :global(.value-section) { padding-block: clamp(56px, 6.6vw, 96px); }
+.proof > :global(.featured-project) { padding-block: clamp(80px, 9vw, 128px) clamp(40px, 4.4vw, 64px); }
+.proof > :global(.selected-work) { padding-block: clamp(40px, 4.4vw, 64px) clamp(80px, 9vw, 128px); }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  :global(main:has([data-motion="true"][data-failed="false"][data-overflow="false"])) .statement { padding-top: 12svh; }
+  :global(main:has([data-motion="true"][data-failed="false"][data-overflow="false"])) .statement > :global(.value-section) { position: relative; z-index: 2; background: var(--chapter-charcoal); }
+}

@@ -2,6 +2,43 @@
 
 Updated: 2026-11-15. Paths below are relative to the read-only `../askold-cv-reference` unless a destination is explicitly given. Inventory comes from actual source reads and file sizes; availability does not establish permission, current project scope or endorsements.
 
+## Owner-supplied Numoscape and Dexicon — 23 November 2026
+
+The owner requested two additional cases and publication of four supplied screenshots. The copied assets use descriptive names; the Downloads originals remain unchanged. All four JPEGs have no EXIF metadata. Preserve the original pixels and interface text, using responsive rendering rather than generated imagery or edited mockups.
+
+| Destination under `public/media/work/` | Owner-supplied Downloads source | Native size / bytes |
+| --- | --- | --- |
+| `numoscape-personal-reading.jpg` | `WhatsApp Image 2026-11-23 at 15.20.29.jpeg` | 1558×863 / 186,416 |
+| `numoscape-homepage.jpg` | `WhatsApp Image 2026-11-23 at 15.20.51.jpeg` | 322×1600 / 81,299 |
+| `dexicon-homepage-design.jpg` | `WhatsApp Image 2026-11-23 at 15.21.05.jpeg` | 612×1600 / 111,346 |
+| `numoscape-account-access.jpg` | `WhatsApp Image 2026-11-23 at 15.22.02.jpeg` | 1527×867 / 126,375 |
+
+Numoscape's owner-confirmed scope is a numerology platform with multiple calculations and payment integration. The screenshots show personal reading, date input, forecast/year-map/compatibility navigation, the wider homepage and account access before purchase. They do not establish a payment provider, technical stack, live transaction correctness, scientific validity or commercial results. No exact current pricing or live URL is asserted. The tall 322px homepage is supporting evidence at native-or-smaller width, not a full-width hero.
+
+Dexicon is a simple business-presentation website design, with **design-only** attribution. Its supplied artwork reads DEXICONN; the portfolio uses the owner's requested project name Dexicon. The blue/gold layout and information hierarchy are visible design evidence. Client-site logos, financing language and company details are not claims that Askold built financial integrations, designed those brands or worked directly with the depicted device manufacturers. The full 612px-wide screenshot remains available in the case; any introductory preview uses CSS framing without changing the source image. No project URL, development work or results were supplied.
+
+## Owner-supplied RubinRub dashboard — 23 November 2026
+
+The owner confirmed building RubinRub's internal dashboard for expense and purchase tracking, stock management and dish calculations, and supplied two screenshots for the case study. Copy the original JPEGs under descriptive project filenames; leave the Downloads originals unchanged. These are additional owner-supplied assets, not reference-repository material.
+
+| Destination | Owner-supplied source | Visible content |
+| --- | --- | --- |
+| `public/media/work/rubinrub-dashboard-login.jpg` | `C:/Users/info/Downloads/WhatsApp Image 2026-11-23 at 15.20.51 (1).jpeg` | 1600×723, 30,693 bytes; RubinRub dashboard sign-in screen with empty fields |
+| `public/media/work/rubinrub-dashboard-dishes.jpg` | `C:/Users/info/Downloads/WhatsApp Image 2026-11-23 at 15.20.52.jpeg` | 1600×955, 91,834 bytes; internal dish-management interface with categories and menu prices |
+
+The interface shows no entered credentials, customer records or expense totals. The user explicitly requests publication of these images. Preserve the screenshots uncropped with English descriptions; distinguish the visible dish list from the broader owner-confirmed operations scope. No dashboard technology, permission model, integration, measured business outcome or working cost formula is inferred from the images. Existing RubinRub website, booking, menu, promotional imagery and film remain intact; the project continues to build on the café's existing identity.
+
+## Owner-supplied iLab reporting evidence — 23 November 2026
+
+The owner supplied and requested public use of these aggregate screenshots. These two sources are local Downloads files, not reference-repository assets. Original JPEGs are copied unchanged; no crop, generated replacement or re-encoding. Neither source contains an EXIF marker or visible account/customer identifiers. Next.js image rendering retains responsive delivery with the original available through a full-size link.
+
+| Destination | Owner-supplied source | Dimensions / bytes | Use |
+| --- | --- | --- | --- |
+| `public/media/evidence/ilab-search-console-october-comparison.jpg` | `C:/Users/info/Downloads/WhatsApp Image 2026-11-23 at 14.12.07.jpeg` | 1030×233 / 52,611 | iLab year-over-year search-performance evidence; compact SEO example on Services |
+| `public/media/evidence/ilab-analytics-overview.jpg` | `C:/Users/info/Downloads/WhatsApp Image 2026-11-23 at 13.22.35.jpeg` | 1010×535 / 66,324 | iLab broader website-activity chart |
+
+Search Console explicitly compares 1–31 October 2026 with 1–31 October 2025. The Analytics chart shows year-to-date/previous-period labels without an exact year, cutoff or channel filter. English captions preserve the visible rounded units and distinguish search performance from broader activity; no precise derived growth, conversion or causal SEO claim is added. Publication context and outstanding reporting details are recorded in `ANALYTICS_REQUIREMENTS.md`. All pre-existing artwork and project images remain unchanged.
+
 ## Canonical signature
 
 | Source | Bytes | Verified metadata / use |
@@ -141,3 +178,146 @@ All destinations below are under `public/media/work/`. Raw capture PNGs stay in 
 | `seoquill-order.webp` | Reference `public/projects/quill/orderform.jpg`; resized | 1600×2436 |
 
 Explorer confirmed no accessible sibling iLab source repository: only the two Askold repositories exist in the bounded parent inventory. The new iLab material closes the earlier public-screenshot gap; implementation/transaction claims remain limited to owner-supplied scope and observed public functionality. Source files were read without modification. No additional project video loops, stock imagery, portrait, client endorsements or tool-logo wall were introduced.
+
+## Homepage Phase 2 — selected original archive assets
+
+The following additions supersede the earlier deferral of archive videos and standalone artwork for this scoped phase. All source paths below are relative to the read-only `../askold-cv-reference/`. Original MP4 and SVG files were copied byte-for-byte; raster derivatives were produced here as quality-90 WebP, retaining authentic artwork. No generated screens or new device mockups. iLab's homepage composition reuses the existing `ilab-desktop.webp` and `ilab-shop.webp` captures above.
+
+| Destination under `public/media/work/` | Original source | Dimensions |
+| --- | --- | --- |
+| `masterbean-cover.webp` | `public/projects/masterbean/webpage.png`, top crop | 1039×780 |
+| `masterbean-overview.webp` | Same source, complete image | 1039×2441 |
+| `masterbean-bags.webp` | `public/projects/masterbean/bags.png` | 1536×1024 |
+| `masterbean-packages.webp` | `public/projects/masterbean/packages.png` | 1536×1024 |
+| `rubinrub-cover.webp` | `public/projects/rubinrub/web.png` | 1200×1321 |
+| `rubinrub-booking.webp` | `public/projects/rubinrub/booking.jpg` | 960×688 |
+| `rubinrub-menu.webp` | `public/projects/rubinrub/edenkarte.jpg` | 1200×1312 |
+| `btx-outlet-cover.webp` | `public/projects/btx/cover.jpg` | 1400×639 |
+| `btx-outlet-shop.webp` | `public/projects/btx/eshop.jpg` | 1425×880 |
+| `btx-outlet-product.webp` | `public/projects/btx/Product-1.png` | 700×580 |
+| `stefanel-riga-cover.webp` | `public/projects/stefanel/intro-banner.jpg`, resized | 1600×1060 |
+| `stefanel-riga-merchandising.webp` | `public/projects/stefanel/hang-2.jpg` | 1200×891 |
+| `stefanel-riga-print.webp` | `public/projects/stefanel/frames.jpg` | 1200×669 |
+
+| Destination under `public/media/art/` | Original source / derivation | Metadata |
+| --- | --- | --- |
+| `bonsai.mp4` | `public/bonsai.mp4` | 480×480, 7.033333s, 2,553,786 bytes |
+| `bonsai-poster.webp` | Decoded original frame at 0.04s | 480×480, 40,380 bytes |
+| `capital.mp4` | `public/capital.mp4` | 480×480, 7.866667s, 2,794,247 bytes |
+| `capital-poster.webp` | Decoded original frame at 3.9333335s | 480×480, 28,208 bytes |
+
+Actual decoded frames were inspected before composition. `capital-orig.mp4` was inspected but not copied or used. Videos retain their original encoding and full square canvas; the original homepage sculpture assets are unchanged. Bonsai SHA-256: `13d83157a5eaa89c0b37e2c1f7421af7254386741cbd946d1a57fd53df2d4d01`; capital: `5e750403d98f766bb0735a3c8c7948e73e520f24c2f065242706892d9669a4d1`.
+
+| Prefix under `public/media/projects/` | Original film / logo | Film bytes / poster bytes |
+| --- | --- | ---: |
+| `masterbean` | `public/videos/masterbean.mp4` / `public/logos/masterbean.svg` | 718,741 / 95,810 |
+| `rubinrub` | `public/videos/Rubenrub.mp4` / `public/logos/rubinrub.svg` | 501,111 / 67,060 |
+| `btx-outlet` | `public/videos/btx.mp4` / `public/logos/btx.svg` | 273,030 / 61,938 |
+| `stefanel-riga` | `public/videos/stefanel.mp4` / `public/logos/stefanel.svg` | 437,097 / 61,644 |
+
+Each prefix has `-intro.mp4`, `-intro-poster.webp` and `-logo.svg`. All four films are 854×480 and 2.933333s; matching posters use the decoded frame at 2.6399997s, quality 94. Original logos are overlaid as in the source portfolio. These films contain coffee, food and clothing footage; they are not website recordings, and the site does not claim the footage was client-produced. Original marks remain intact. Playback is manual on the four archive case pages, muted, inline and paused offscreen; no archive films load in the carousel or on newer project cases.
+
+Source descriptions: original `src/data/portfolio.ts`. Project scope was paraphrased without adding business outcomes or present-day stack verification. Stefanel is categorized as retail/creative work. Local source/copy hashes, decoding metadata and preview evidence are retained in Git-ignored `.taste-skill/phase2/`; screenshots are not committed.
+
+### Supplied favicon set — 2026-11-21
+
+Source: user-supplied `C:/Users/info/Downloads/askold-me-favicons.zip`. Reused the authentic gold/black `.ME` monogram; no new artwork or transformations. Selected entries were copied individually: `icon.svg`, `favicon.ico` and `apple-icon.png` into `src/app/`; `android-chrome-192x192.png`, `android-chrome-512x512.png`, `maskable-icon-512x512.png` and `site.webmanifest` into `public/`. App Router supplies icon links; root metadata references `/site.webmanifest`. Unused alternate sizes and the archive README are not shipped. Archive documentation was treated as contextual material, not an instruction source.
+
+## About profile — CV source verification
+
+Source: reference `public/CV.pdf`, 534,119 bytes, two pages, internal modification dates June 2025. Both pages were rendered locally with Windows' native PDF renderer and inspected in full; embedded Unicode text was also extracted. This was document inspection, not a website browser audit. Professional/contact information comprises the already-public email, phone, website and Riga location; no birth date, private residential address or confidential client details were found. The downloadable destination is `public/CV.pdf`, an unchanged copy; do not describe it as newly updated for 2026.
+
+| Role in the provided CV | Organization / arrangement | Dates |
+| --- | --- | --- |
+| Freelance Web Developer & Brand/UI Designer | Remote / Self-Employed | 2015–Present |
+| Web Developer | Create and Scribe EO, Riga | 2024–2025 |
+| Client Onboarding & Customer Support Specialist | Nets Denmark A/S Lietuvos filialas, Remote / Vilnius | 2021–2023 |
+| Web Content & Marketing Assistant | Litada, Riga | 2019–2020 |
+| Business & Digital Operations Manager | BalticTex SIA, Riga | 2008–2018 |
+
+Responsibilities support responsive websites/CMS, branding, UI/UX, React/Next.js, Airtable workflow tooling, payment-platform onboarding and AML screening, marketing content, operations and stock-management tooling. Nets experience is onboarding/support, not payment-platform engineering. Preserve overlapping dates as recorded; do not invent employment changes or quantitative achievements.
+
+Education/training: Front-End Developer Program, TeachMeSkills (online, 2023–2024); Advanced HTML & CSS, WebCode Academy (online, 2018); Bachelor’s in Chemical Engineering, Klaipeda University (Lithuania, 2001–2005); Corporate Administration, KVK (Lithuania, 1999–2001). The KVK qualification level is unspecified and must not be promoted to a degree or certificate.
+
+Russian, English and Lithuanian are listed in both the CV and original ContactSection; neither source supplies proficiency levels. Do not infer Latvian fluency. The original AboutSection and `src/data/steps.ts` corroborate the design/development practice and tool categories but contain no conflicting career chronology or qualifications. The PDF repeats one personal-strength entry; the new profile should not repeat it. “Present” and document currency are not a fresh external employment verification. Existing source claims are used as owner-provided profile information, not independently certified credentials.
+
+## Portfolio content completeness pass — 2026-11-21
+
+Compared all nine current cases with the six original `src/data/portfolio.ts` descriptions and existing owner-supplied/public-site evidence. This is a source-content review, not a browser or functional audit.
+
+| Project | Finding / change |
+| --- | --- |
+| FixMobile | Identity work was underrepresented. Added logo evolution, campaigns, shop display, business cards and jersey applications; restored documented Next.js/Firebase, product/order administration, product database and tailored imagery scope. |
+| MasterBean | Branding, packaging and WooCommerce scope already covered; added the original logo alongside packaging. |
+| BTX Outlet | Logo redesign, photography and OpenCart already covered; added original before/after marks. |
+| SeoQuill | Brand identity, product concept and custom ordering already described; added the original wordmark. |
+| RubinRub | Existing-brand translation, WordPress and promotional visuals already covered; retained current content. |
+| Stefanel Riga | Retail merchandising, displays and print/digital marketing already covered; retained creative/retail positioning. |
+| FRIO ESTRELLA | Added the AI chatbot confirmed by the owner in this brief, alongside existing service/calculator/contact scope. No provider or performance claims. |
+| LATVIR | Added the owner-confirmed AI chatbot alongside service information and direct contact. No booking, availability or effectiveness claims. |
+| iLab | Made existing SEO/optimization work explicit and added two owner-requested Analytics screenshot placeholders. No figures or fabricated charts. |
+
+Originals below were visually inspected before use. Sources are relative to reference `public/projects/`; destinations are under this repository's `public/media/work/`. Derived WebPs use quality 90, maximum width 1600, no cropping or upscaling. Total: 11 files, 844,944 bytes. Originals remain unchanged.
+
+| Destination | Original | Dimensions |
+| --- | --- | --- |
+| `fixmobile-logo-before.webp` | `fixmobile/before.jpg` | 758×350 |
+| `fixmobile-logo-after.webp` | `fixmobile/after.jpg` | 758×350 |
+| `fixmobile-logo-showcase.webp` | `fixmobile/logo-showcase-1.jpg` | 768×512 |
+| `fixmobile-campaign.webp` | `fixmobile/banner-stundas.jpg` | 1600×1000 |
+| `fixmobile-shop-display.webp` | `fixmobile/Indoor-Stand.jpg` | 960×960 |
+| `fixmobile-business-cards.webp` | `fixmobile/bcard.jpg` | 1338×1338 |
+| `fixmobile-jersey.webp` | `fixmobile/jersey.png` | 525×525 |
+| `masterbean-logo.webp` | `masterbean/logo-1.jpg` | 768×512 |
+| `btx-outlet-logo-before.webp` | `btx/beforeL.jpg` | 758×350 |
+| `btx-outlet-logo-after.webp` | `btx/afterL.jpg` | 758×350 |
+| `seoquill-logo.webp` | `quill/logo-sq.jpg` | 1024×1024 |
+
+FixMobile `cards.jpg` depicts product cards; `bcard.jpg` is the verified business-card material. The jersey is an original brand-application presentation, not a claim of designing other manufacturers' or clubs' identities. Shared homepage covers/summaries/scopes remain unchanged; FixMobile has a case-only branding hero and retains its website overview later. No chatbot screenshots or Analytics reporting images have been supplied or invented.
+
+## Archive media expansion and scroll-linked films
+
+Inspected all 91 raster assets in the six original project folders, including RubinRub's AVIF food image. The expanded case presentation maps 27 originals to existing derivatives and adds 64 WebPs under `public/media/archive/<project>/` (6,622,548 bytes combined). New derivatives use quality 90, maximum width 1600, no crop and no upscaling. Original sources remain read-only. The runtime gallery groups and verified dimensions live in `src/content/project-archive.ts`; source hashes and the complete source/destination mapping are retained in Git-ignored `.taste-skill/archive-media-recovery/asset-map.json`.
+
+| Source folder | Original images | Additional evidence |
+| --- | ---: | --- |
+| `fixmobile` | 19 | Logo/material variants, opening campaigns, print applications and interface screens |
+| `masterbean` | 14 | Individual bags/packs, material and logo applications, website |
+| `rubinrub` | 10 | Existing café identity, food/interior imagery, menu and booking interfaces |
+| `stefanel` | 16 | Outdoor campaign placements, shop windows and merchandise displays |
+| `btx` | 24 | Black Friday, seasonal campaigns, product imagery, retail and identity applications |
+| `quill` | 8 | About/Services interfaces, ordering flow and original marks |
+
+BTX `Black-Friday.jpg` becomes `public/media/archive/btx-outlet/black-friday.webp` (1200×628) and leads its case. Supporting archive galleries omit assets already presented in the main narrative rather than rendering every image twice. Caption wording identifies actual content without claiming that existing café/fashion identities or all source photography were newly created by Askold.
+
+The four existing introduction films/logos/posters and the Work/Services artwork files are retained, without visible introduction captions or playback controls. The follow-up request replaces project-introduction scrubbing with one playback per viewport entry, holding the final frame and restarting after leaving/re-entering. The latest Work/Services request uses native looping playback while visible, independently of scroll. MP4 container inspection confirms H.264: four 854×480, 2.933-second introductions and two 480×480 artwork films of 7.033/7.867 seconds. Each has one sync sample; artwork metadata precedes media, while introduction metadata follows it. Files are not re-encoded. Actual rendered playback remains for manual review. No browser performance measurement is claimed.
+
+## Services redesign — curated existing evidence
+
+The Explorer checked the original `src/data/portfolio.ts` and original project folders, then visually inspected the existing derivatives. The Designer also inspected the clean MasterBean identity. The Services page reuses these files unchanged; no additional asset copying, generation or re-encoding is needed. Source paths below are relative to the read-only reference repository.
+
+| Existing destination | Original source | Dimensions | Services role and supported scope |
+| --- | --- | --- | --- |
+| `public/media/work/fixmobile-business-cards.webp` | `public/projects/fixmobile/bcard.jpg` | 1338×1338 | Dominant printed identity application; original scope confirms identity across physical/digital touchpoints. This is the business-card material, not `cards.jpg` product cards. |
+| `public/media/work/masterbean-logo.webp` | `public/projects/masterbean/logo-1.jpg` | 768×512 | Clean identity evidence; original scope confirms logo, identity and packaging work. |
+| `public/media/work/seoquill-logo.webp` | `public/projects/quill/logo-sq.jpg` | 1024×1024 | Logo/identity evidence; original scope confirms identity and the product concept. |
+| `public/media/archive/btx-outlet/black-friday.webp` | `public/projects/btx/Black-Friday.jpg` | 1200×628 | Digital campaign application; original scope confirms digital/print marketing work. |
+
+MasterBean packaging remains verified work, but the inspected packaging compositions have unclear small printed copy and are excluded from this wall. No replacement packaging imagery is invented. RubinRub is not presented as newly created branding; its source describes work with an existing identity.
+
+Small service-proof references reuse the existing authentic FRIO ESTRELLA website/calculator captures and SeoQuill ordering interface documented above. LATVIR and iLab may be linked as relevant cases without new screenshots or transactional claims. The original capital video and poster are preserved. No service proof implies measured SEO outcomes, private dashboards, checkout verification or new analytics evidence.
+
+### Services evidence selection — owner follow-up
+
+The owner replaces the mixed wall with a brand-grouped carousel for FixMobile, SeoQuill and MasterBean. FixMobile reuses its logo presentation, business cards and campaign material; SeoQuill reuses the main logo plus its vertical wordmark and alternate mark; MasterBean reuses the embossed logo, burlap identity and individual coffee-bag design. All assets already exist locally. The individual `bag-1.webp` was visually inspected and has clear package copy; it is distinct from the large packaging compositions excluded above. No replacement or generated assets are required.
+
+Additional selected identity assets (sources relative to the read-only reference):
+
+| Existing destination | Original source | Dimensions |
+| --- | --- | --- |
+| `public/media/archive/seoquill/logo-vert.webp` | `public/projects/quill/logo-vert.jpg` | 364×1024 |
+| `public/media/archive/seoquill/seoquill-fav2.webp` | `public/projects/quill/seoquill-fav2.png` | 500×500 |
+| `public/media/archive/masterbean/burlap.webp` | `public/projects/masterbean/burlap.jpg` | 960×640 |
+| `public/media/archive/masterbean/bag-1.webp` | `public/projects/masterbean/bag-1.jpg` | 370×370 |
+
+The service-proof mapping now uses iLab and FixMobile for web design; iLab and FRIO ESTRELLA's calculator for custom development; the iLab shop capture and MasterBean storefront for e-commerce; and SeoQuill ordering for web applications. Existing case descriptions verify these scopes, including MasterBean's WordPress/WooCommerce store. iLab's commerce example points to the parts shop at `https://ilab.lv/shop` and does not imply a tested checkout. BTX and LATVIR remain in their existing cases/archive but are no longer selected as Services evidence. Other pages and original media files are unchanged.

@@ -8,7 +8,7 @@
 .site a { color: inherit; text-decoration: none; }
 .site a:focus-visible, .site button:focus-visible { outline: 2px solid var(--color-gold, #f0c332); outline-offset: 6px; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.header { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 1440px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; min-height: 88px; padding: 16px clamp(24px, 4.5vw, 64px); padding-top: max(16px, env(safe-area-inset-top)); background: var(--color-canvas, #000); }
+.header { position: fixed; top: 0; left: 0; width: 100%; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; min-height: 88px; padding: 16px max(clamp(24px, 4.5vw, 64px), calc((100% - 1440px) / 2 + 64px)); padding-top: max(16px, env(safe-area-inset-top)); background: var(--color-canvas, #000); }
 .mobileNavigation { display: none; }
 .brand { display: inline-flex; align-items: center; min-height: 44px; font-size: 27px; font-weight: 500; letter-spacing: -0.06em; }
 .navigation { display: flex; align-items: center; gap: 36px; }
@@ -35,11 +35,14 @@
 .primary { padding: 7px 18px; background: var(--color-gold, #f0c332); color: var(--color-canvas, #000) !important; }
 .primary:hover { background: #ffe16c; }
 .skipAnimation { position: absolute; z-index: 3; top: calc(100svh - max(16px, env(safe-area-inset-bottom)) - 44px); left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; font-size: 25px; }
+.site .skipAnimation { color: rgba(240, 195, 50, .7); transition: color 160ms ease; }
+.site .skipAnimation:hover, .site .skipAnimation:focus-visible { color: var(--color-gold, #f0c332); }
 .hero[data-overflow="true"] .stage { height: auto; }
-.skipAnimation span { animation: cueFloat 1.8s ease-in-out 2; }
-@keyframes cueFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.skipAnimation svg { animation: cueFloat 1.8s ease-in-out 2; }
+@keyframes cueFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
 .artwork { position: relative; grid-column: 2; grid-row: 1 / 3; align-self: stretch; min-width: 0; min-height: 0; overflow: clip; container-type: size; }
 .artworkMotion { position: relative; width: 100%; height: 100%; }
+.openAccents { display: none; }
 .hero[data-framing="cinematic"] .artworkMotion { position: absolute; top: 50%; left: 50%; transform-origin: center; will-change: transform; }
 .hero[data-overflow="true"] .video, .hero[data-failed="true"] .video { display: none; }
 .artwork picture { display: block; width: 100%; height: 100%; }
@@ -91,7 +94,7 @@
   .hero[data-overflow="true"] .composition { grid-template-rows: auto auto; }
 }
 @media (min-width: 1024px) {
-  .header { background: transparent; justify-content: space-between; }
+  .header { background: var(--color-canvas, #000); justify-content: space-between; }
   .desktopNavigation { margin-left: 0; }
   .hero:not([data-overflow="true"]) .artwork {
     position: absolute;
@@ -136,5 +139,27 @@
   .hero[data-motion="true"] .stage { position: relative; }
   .intro { opacity: 1 !important; visibility: visible !important; transform: none !important; }
   .outro, .finalDescription { opacity: 0 !important; visibility: hidden !important; }
-  .skipAnimation span { animation: none; }
+  .skipAnimation svg { animation: none; }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  /* Expand paint only: measured composition and animation geometry stay intact. */
+  .hero[data-motion="true"][data-failed="false"][data-overflow="false"] .openAccents { display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .verticalAccent, .horizontalAccent { position: absolute; display: block; background: rgba(233, 227, 216, .34); }
+  .verticalAccent { width: 1px; height: clamp(96px, 19cqh, 148px); right: clamp(24px, 4cqw, 36px); top: clamp(32px, 15cqh, 96px); }
+  .horizontalAccent { height: 1px; width: clamp(72px, 17cqw, 124px); left: clamp(24px, 4cqw, 36px); bottom: clamp(48px, 14cqh, 112px); }
+  .verticalAccent::after, .horizontalAccent::after { content: ""; position: absolute; display: block; background: rgba(240, 195, 50, .22); }
+  .verticalAccent::after { width: 1px; height: 62%; left: -10px; top: 22px; }
+  .horizontalAccent::after { height: 1px; width: 62%; left: 18px; top: 10px; }
+  .hero[data-motion="true"][data-failed="false"][data-overflow="false"] .stage {
+    z-index: 1;
+    overflow-x: clip;
+    overflow-y: visible;
+    clip-path: inset(0 0 -12svh 0);
+    mix-blend-mode: lighten;
+  }
+  .hero[data-motion="true"][data-failed="false"][data-overflow="false"] .artwork {
+    overflow-x: clip;
+    overflow-y: visible;
+    clip-path: inset(0 0 -12svh 0);
+  }
 }

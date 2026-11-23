@@ -1,0 +1,29 @@
+.gallery { position: relative; }
+.stage { position: relative; overflow: hidden; height: calc(38vw + 190px); max-height: 710px; min-height: 420px; touch-action: pan-y pinch-zoom; }
+.slide { position: absolute; top: 0; left: 0; width: calc((100% - clamp(32px, 4.4vw, 64px)) * .583333); transform-origin: top left; }
+.slide:nth-child(n+3) { visibility: hidden; }
+.slide:nth-child(2) { transform: translate(111%, 120px); }
+.mediaLink { transform-origin: top left; }
+.caption { position: absolute; top: 0; left: 0; width: 100%; transform: translateY(calc(38vw + 24px)); }
+.slide:nth-child(2) .mediaLink { transform: scale(.714286); }
+.slide a { text-decoration: none; display: block; }
+.image { width: 100%; aspect-ratio: 36 / 25; overflow: hidden; background: var(--color-surface); }
+.image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.slide h3 { font-size: 25px; font-weight: 400; }
+.slide p { font-size: 16px; line-height: 1.6; margin-top: 12px; max-width: 45ch; }
+.slide h3 a:hover { color: var(--color-gold); }
+.slide a:focus-visible { outline-offset: -3px; }
+.controls { position: absolute; top: 0; right: 0; z-index: 1; display: flex; gap: 20px; justify-content: flex-end; align-items: center; margin: 0; }
+.controls button { width: 48px; height: 48px; border: 1px solid var(--color-muted); color: var(--color-ink); background: transparent; font-size: 24px; cursor: pointer; touch-action: manipulation; }
+.controls button:hover { color: var(--color-gold); border-color: var(--color-gold); }
+.controls button[aria-disabled="true"] { opacity: .5; cursor: default; }
+.counter { font-size: 15px; font-variant-numeric: tabular-nums; min-width: 52px; text-align: center; }
+@media (max-width: 760px) {
+  .stage { height: calc(53vw + 188px); min-height: 340px; max-height: none; }
+  .slide { width: 82%; }
+  .slide:nth-child(2) { transform: translate(calc(100% + 18px), 36px); }
+  .slide:nth-child(2) .mediaLink { transform: scale(.62); }
+  .slide h3 { font-size: 23px; }
+  .slide p { font-size: 15px; }
+  .controls { position: static; gap: 16px; margin: 0 0 24px; }
+}

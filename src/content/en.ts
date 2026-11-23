@@ -2,7 +2,7 @@ export const en = {
   site: {
     name: "Askold Makrikov",
     title: "Askold Makrikov — Web Design & Development",
-    description: "Independent web design and development by Askold Makrikov.",
+    description: "Independent web design, brand identity and custom development by Askold Makrikov.",
   },
   accessibility: { skipToContent: "Skip to content" },
   foundation: {

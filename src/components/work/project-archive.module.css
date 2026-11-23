@@ -1,0 +1,15 @@
+.archive { padding-block: 64px 0; }
+.archive summary { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; min-height: 64px; cursor: pointer; list-style: none; font-size: 22px; }
+.archive summary::-webkit-details-marker { display: none; }
+.count { font-size: 15px; color: #b4b0a6; }
+.indicator { margin-left: auto; color: #f0c332; font-size: 28px; }
+.indicator span:last-child, .archive details[open] .indicator span:first-child { display: none; }
+.archive details[open] .indicator span:last-child { display: inline; }
+.content { padding-top: 48px; }
+.group + .group { margin-top: 64px; }
+.group h2 { font-family: var(--font-editorial); font-size: 38px; line-height: 1.1; font-weight: 400; margin-bottom: 32px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; align-items: start; }
+.grid figure { min-width: 0; margin: 0; }
+.grid figcaption { margin-top: 14px; font-size: 14px; color: #b4b0a6; }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; gap: 32px; } .archive summary { font-size: 20px; gap: 12px; } }

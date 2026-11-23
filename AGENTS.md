@@ -35,7 +35,7 @@ Configured specialists:
 - explorer: read-only investigation
 - designer: visual direction and UX
 - implementer: application development
-- qa: milestone-based independent testing
+- qa: final testing only after explicit user authorization
 
 Maximum 3 concurrent subagents.
 
@@ -119,17 +119,24 @@ Homepage:
 2. Business value proposition
 3. Featured iLab case study
 4. Additional selected projects
-5. Services
-6. Why work with me
-7. Process
-8. About
-9. Contact
+5. Services workbench
+6. Process timeline
+7. Personal chapter combining About and direct collaboration
+8. Shared calm closing invitation, opening the existing contact modal
+9. Black footer; contact opens in a full-screen modal (`/#contact`)
 
 Additional pages:
 - /work
 - /work/[slug]
 - /services
-- /contact
+- /about (professional profile, experience and CV)
+- /contact (legacy redirect to `/#contact`)
+
+Contact is a full-screen modal panel, not an in-flow homepage section. Internal contact navigation and inquiry CTAs target `/#contact`, opening the shared panel above the current page; direct links and the legacy redirect must also work. Do not recreate a duplicate standalone contact page. The authorized Resend integration uses server-only `POST /api/contact` and `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`. Never expose these values to the client or commit `.env.local`. Show submission success only after provider acceptance; preserve entered data on failure and keep direct contact links and the no-JavaScript email fallback. Basic honeypot/input/request limits are not a distributed rate limiter.
+
+About navigation targets `/about` from the footer and the approved secondary “More about me” link in the homepage personal chapter. Do not add it to the top bar. Keep the approved homepage personal chapter concise. Career and qualification details must come from the provided CV or confirmed owner information; do not infer language proficiency or additional qualifications.
+
+Reuse the approved `PageInquiry` closing invitation once on the homepage, Work, Services, About and project-detail pages. Preserve its default copy and two-column charcoal composition; its button opens the existing `/#contact` modal. Do not add another form or contact panel.
 
 Use English initially.
 
@@ -174,33 +181,35 @@ Avoid unnecessary dependencies and overengineering.
 
 ## QA policy
 
-Full QA is permitted only at major milestones.
+This policy overrides all previous milestone-based QA schedules in these instructions and project documentation. No intermediate milestone automatically triggers QA. It applies to the orchestrator, specialists and skill workflows alike.
 
-MILESTONE 1:
-Discovery, architecture and design direction.
-No QA agent.
+### Development phase
 
-MILESTONE 2:
-Signature hero, navigation and design foundation.
-QA review #1.
+- Do NOT spawn the QA agent or invoke `visual_qa`, `functional_qa` or similar testing/review agents.
+- Do NOT run browser-based QA after individual changes.
+- Do NOT automatically perform visual audits or screenshot comparisons.
+- Do NOT run Lighthouse, accessibility or SEO audits.
+- Do NOT run full regression tests.
+- Do NOT create QA reports after each implementation pass.
+- Do NOT repeatedly run production builds.
 
-MILESTONE 3:
-Complete website and case studies.
-No full QA agent.
+During development, the Implementer may run targeted TypeScript or lint checks when necessary to catch errors. Run a production build only at significant integration checkpoints or when explicitly requested.
 
-MILESTONE 4:
-Release candidate.
-QA review #2.
+### Final QA phase
 
-The implementer may run fast TypeScript, lint and build checks during development.
+Activate QA only when the user explicitly approves that the entire website is finished and ready for final testing. Do not begin final QA without that authorization; milestone completion does not supply it.
 
-Do not run complete browser suites after every component or edit.
+Once authorized, final QA covers:
 
-QA must report reproducible issues with severity.
+- Browser and responsive tests
+- Functional tests
+- Accessibility audit
+- Performance and Core Web Vitals review
+- SEO audit
+- Cross-browser review
+- Final production build
 
-Fix critical and high-priority findings.
-
-Repeat only affected tests after fixes.
+During authorized final QA, report reproducible issues by severity, fix critical and high-priority findings, and repeat only affected tests after fixes.
 
 ## Documentation
 
@@ -215,6 +224,8 @@ docs/QA_REPORT.md
 Keep milestone status and important decisions up to date.
 
 Do not create excessive documentation for trivial work.
+
+Preserve existing QA records as history; create or update QA reports only during explicitly authorized final QA, not after development implementation passes.
 
 ## Execution
 

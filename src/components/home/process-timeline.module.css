@@ -1,0 +1,26 @@
+.chapter { background: #000; color: #f2efe7; padding-block: clamp(72px, 8vw, 112px); }
+.heading h2 { font-family: var(--font-editorial); font-size: clamp(48px, 6.7vw, 96px); font-weight: 400; line-height: .98; letter-spacing: -.035em; }
+.heading p { margin-top: 28px; font-size: clamp(18px, 2vw, 24px); max-width: 44ch; }
+.story { display: grid; grid-template-columns: 4fr 1fr 7fr; gap: 24px; align-items: start; margin-top: 72px; }
+.counter { display: none; position: sticky; top: 22svh; grid-column: 1; color: #f0c332; }
+.counter > span:first-child { display: block; font-family: var(--font-editorial); font-size: clamp(180px, 22vw, 320px); line-height: .8; font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
+.total { display: block; font-size: 16px; margin-top: 32px; }
+.chapter[data-enhanced="true"] .counter { display: block; }
+.stagesWrap { position: relative; grid-column: 1 / -1; }
+.chapter[data-enhanced="true"] .stagesWrap { grid-column: 3; }
+.stages { list-style: none; margin: 0; padding: 0 0 0 36px; }
+.track { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: #5b4b1b; }
+.track > span { display: block; width: 100%; height: 100%; background: #f0c332; transform-origin: top; }
+.stages li { min-height: 260px; padding: 0 0 64px; }
+.stages li:last-child { min-height: 0; padding-bottom: 0; }
+.stageNumber { display: block; color: #f0c332; font-size: 18px; margin-bottom: 12px; }
+.chapter[data-enhanced="true"] .stageNumber { display: none; }
+.stages h3 { font-family: var(--font-editorial); font-size: clamp(36px, 3.5vw, 52px); font-weight: 400; line-height: 1.05; letter-spacing: -.025em; text-wrap: balance; }
+.stages p { max-width: 48ch; margin-top: 24px; font-size: 18px; line-height: 1.6; }
+@media (max-width: 767px) {
+  .story { display: block; margin-top: 56px; }
+  .stages { padding-left: 24px; }
+  .stages li { min-height: 0; padding-bottom: 56px; }
+  .stages p { font-size: 17px; margin-top: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .counter { display: none !important; } .stageNumber { display: block !important; } }
