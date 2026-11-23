@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "re
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { mobileFirstScroll, type MobileRevealState } from "./mobile-first-scroll";
 import styles from "./signature-foundation.module.css";
 
 const EMAIL = "/#contact";
@@ -16,7 +15,7 @@ const IDEA = "Let's make your\nideas visible.";
 const FINAL_MESSAGE = "Then make them work\nfor your business.";
 
 // Active travel in viewport heights; the sticky stage adds one more viewport.
-export const HERO_SCROLL = { desktop: 4, compact: 2.5 } as const;
+export const HERO_SCROLL = { desktop: 4, compact: 2.5, mobile: .9 } as const;
 const PHASE = {
   greetingErase: 0.14, ideaType: 0.23, transformStart: 0.18,
   transformAccelerate: 0.42, ideaErase: 0.63, finalType: 0.72,
@@ -91,7 +90,6 @@ function SignatureHero() {
   const finalDescription = useRef<HTMLParagraphElement>(null);
   const initialHash = useRef<string | null>(null);
   const initialAnchorRestored = useRef(false);
-  const mobileReveal = useRef<MobileRevealState>({ started: false, completed: false, time: 0, textTime: 0 });
   const [mobileMode, setMobileMode] = useState(false);
   const [motion, setMotion] = useState(false);
   const [decoded, setDecoded] = useState(false);
@@ -172,7 +170,7 @@ function SignatureHero() {
         ? departurePixels * departurePixels / (2 * departureRamp)
         : departurePixels - departureRamp / 2;
       const departureOffset = (compact.matches ? 0.4 : 0.55) * rampedDeparture;
-      const ascentY = sceneViewportHeight * (compact.matches ? 0.06 : 0.12) * ascent + departureOffset;
+      const ascentY = mobileCopy ? 0 : sceneViewportHeight * (compact.matches ? 0.06 : 0.12) * ascent + departureOffset;
       artFrame.style.transform = `translate(-50%, -50%) translate3d(${framing.centerX * framing.openingScale}px, ${framing.openingY - ascentY}px, 0) scale(${framing.openingScale})`;
     }
 
@@ -199,7 +197,7 @@ function SignatureHero() {
       const required = vertical ? copyHeight + controlsHeight + 144 + padding + 16 : Math.max(copyHeight + controlsHeight + 12, 144) + padding;
       const textTooWide = widthProbe.getBoundingClientRect().width > (copy.current?.clientWidth ?? Infinity) + 1;
       const overflow = required > viewportHeight || textTooWide;
-      const nextDistance = motion && !failed && !overflow && !mobileMode ? viewportHeight * (compact.matches ? HERO_SCROLL.compact : HERO_SCROLL.desktop) : 0;
+      const nextDistance = motion && !failed && !overflow ? viewportHeight * (mobileMode ? HERO_SCROLL.mobile : compact.matches ? HERO_SCROLL.compact : HERO_SCROLL.desktop) : 0;
       const changed = nextDistance !== runDistance || wrapper!.dataset.overflow !== String(overflow);
       runDistance = nextDistance;
       wrapper!.dataset.overflow = String(overflow);
@@ -227,8 +225,7 @@ function SignatureHero() {
           artFrame.style.height = `${finalHeight}px`;
           wrapper!.dataset.framing = "cinematic";
           const poster = artFrame.querySelector("img");
-          const source = mobileMode && mobileReveal.current.completed ? BONSAI : SCULPTURE;
-          if (poster?.getAttribute("src") !== source) poster?.setAttribute("src", source);
+          if (poster?.getAttribute("src") !== SCULPTURE) poster?.setAttribute("src", SCULPTURE);
         } else {
           artFrame.style.removeProperty("width");
           artFrame.style.removeProperty("height");
@@ -273,14 +270,6 @@ function SignatureHero() {
       artFrame?.style.removeProperty("transform");
     }
     if (!motion || failed || !media) return cleanupLayout;
-    if (mobileMode) {
-      // Normal-flow mobile needs no post-pin hash correction on a later rotation.
-      initialAnchorRestored.current = true;
-      const cleanupMobile = mobileFirstScroll({ media, wrapper, firstLine: lineOne, secondLine: lineTwo,
-        state: mobileReveal.current, greeting: GREETING, idea: IDEA, bonsai: BONSAI, sculpture: SCULPTURE,
-        decoded: setDecoded, failed: () => { setFailed(true); setDecoded(false); } });
-      return () => { cleanupMobile(); cleanupLayout(); };
-    }
 
     media.pause();
     media.playbackRate = 1;
@@ -289,6 +278,7 @@ function SignatureHero() {
     let visible = true;
     let ready = media.readyState >= HTMLMediaElement.HAVE_METADATA;
     let raf = 0;
+    let lastMobileTarget: number | null = null;
     const greeting = GREETING;
     const idea = IDEA;
     const finalMessage = FINAL_MESSAGE;
@@ -303,9 +293,12 @@ function SignatureHero() {
       raf = 0;
       if (disposed || wrapper!.dataset.overflow === "true" || !ready || !visible || document.hidden || media!.seeking || media!.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || !Number.isFinite(media!.duration)) return;
       // Verified 67 fps original: this point remains inside its final frame.
-      const target = playhead.frame * Math.max(0, media!.duration - 0.005);
+      const endpoint = Math.max(0, media!.duration - 0.005);
+      const rawTarget = playhead.frame * endpoint;
+      const target = mobileCopy ? playhead.frame >= 1 ? endpoint : Math.min(endpoint, Math.round(rawTarget * 67) / 67) : rawTarget;
+      if (mobileCopy && target === lastMobileTarget) { reveal(); return; }
       if (Math.abs(media!.currentTime - target) < 0.003) { reveal(); return; }
-      try { media!.currentTime = target; } catch { /* Readiness events retry exact seeks once data becomes available. */ }
+      try { media!.currentTime = target; if (mobileCopy) lastMobileTarget = target; } catch { /* Readiness events retry exact seeks once data becomes available. */ }
     }
     function schedule() { if (!disposed && !raf) raf = requestAnimationFrame(pump); }
     function metadata() { ready = true; schedule(); }
@@ -373,7 +366,7 @@ function SignatureHero() {
       animation: controller.timeline,
       start: "top top",
       end: () => `+=${Math.max(1, runDistance + sceneViewportHeight)}`,
-      scrub: 0.3,
+      scrub: mobileMode ? true : 0.3,
       onRefresh: reconcileRefresh,
     });
     controller.timeline.progress(controller.trigger.progress);

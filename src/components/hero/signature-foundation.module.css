@@ -61,8 +61,6 @@
   .actions { gap: 12px 20px; }
 }
 @media (max-width: 760px) {
-  .hero[data-motion="true"]:not([data-overflow="true"]) { height: 100svh; }
-  .hero[data-motion="true"]:not([data-overflow="true"]) .stage { position: relative; }
   .description > p:first-child { opacity: 1 !important; visibility: visible !important; }
   .description .finalDescription { opacity: 0 !important; visibility: hidden !important; }
   .skipAnimation { opacity: 0; pointer-events: none; }
