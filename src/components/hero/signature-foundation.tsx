@@ -139,9 +139,10 @@ function SignatureHero() {
     const lineTwo = secondLine.current;
     const artFrame = artworkMotion.current;
     const framing = { openingScale: 1, openingY: 0, centerX: 0 };
-    // Probe every authored line, independently of the currently typed substring.
+    let mobileCopy = window.innerWidth <= 760;
+    // Probe every displayed headline, independently of the currently typed substring.
     const widthProbe = document.createElement("span");
-    widthProbe.textContent = [GREETING, IDEA, FINAL_MESSAGE].join("\n");
+    widthProbe.textContent = (mobileCopy ? [GREETING, IDEA] : [GREETING, IDEA, FINAL_MESSAGE]).join("\n");
     widthProbe.setAttribute("aria-hidden", "true");
     widthProbe.style.cssText = "position:absolute;visibility:hidden;white-space:pre;width:max-content;max-width:none;pointer-events:none";
     lineOne?.parentElement?.appendChild(widthProbe);
@@ -167,6 +168,8 @@ function SignatureHero() {
     function measureLayout() {
       layoutRequest = 0;
       if (disposed) return;
+      mobileCopy = window.innerWidth <= 760;
+      widthProbe.textContent = (mobileCopy ? [GREETING, IDEA] : [GREETING, IDEA, FINAL_MESSAGE]).join("\n");
       const viewportHeight = ruler!.getBoundingClientRect().height;
       sceneViewportHeight = viewportHeight;
       panel!.style.setProperty("--hero-header-clearance", `${(header?.getBoundingClientRect().height ?? 0) + 16}px`);
@@ -289,8 +292,8 @@ function SignatureHero() {
 
     function updateScene() {
       const progress = wrapper!.dataset.overflow === "true" ? 0 : controller.timeline?.time() ?? 0;
-      const message = progress >= PHASE.finalType ? finalMessage : progress >= PHASE.ideaType ? idea : greeting;
-      const count = wrapper!.dataset.overflow === "true" ? greeting.length : Math.round(progress >= PHASE.finalType ? playhead.final : progress >= PHASE.ideaType ? playhead.idea : playhead.greeting);
+      const message = mobileCopy && progress >= PHASE.ideaType ? idea : progress >= PHASE.finalType ? finalMessage : progress >= PHASE.ideaType ? idea : greeting;
+      const count = wrapper!.dataset.overflow === "true" ? greeting.length : Math.round(mobileCopy && progress >= PHASE.ideaType ? progress >= PHASE.ideaErase ? idea.length : playhead.idea : progress >= PHASE.finalType ? playhead.final : progress >= PHASE.ideaType ? playhead.idea : playhead.greeting);
       const lines = message.slice(0, count).split("\n");
       if (lineOne && lineOne.textContent !== (lines[0] ?? "")) lineOne.textContent = lines[0] ?? "";
       if (lineTwo && lineTwo.textContent !== (lines[1] ?? "")) lineTwo.textContent = lines[1] ?? "";

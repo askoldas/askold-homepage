@@ -60,6 +60,8 @@ The owner requested a substantially quicker mobile hero, aiming for a few natura
 
 Implemented by the Implementer in the hero controller, with separate mobile and compact-desktop distance constants. TypeScript, focused lint and source/formula checks passed. No browser checks, production build, animation redesign, commit or push were performed for this pass.
 
+Mobile copy follow-up: keep only the greeting and “Let's make your ideas visible.” Hold the second phrase through the bonsai reveal and exit, without erasing it for the desktop-only “Then make them work for your business.” transition. Mobile width measurement excludes the unused third phrase. Preserve the shortened mobile scroll range and the existing three-message desktop sequence, including short desktop windows.
+
 ## Current QA policy — explicit final approval required
 
 This policy supersedes all previous milestone-based QA schedules in `AGENTS.md` and project documentation. No intermediate milestone automatically triggers QA. Historical QA/build records below describe past work and do not authorize future testing. These restrictions apply to the orchestrator, specialists and skill workflows alike.
