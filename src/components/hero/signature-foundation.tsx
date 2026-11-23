@@ -15,7 +15,7 @@ const IDEA = "Let's make your\nideas visible.";
 const FINAL_MESSAGE = "Then make them work\nfor your business.";
 
 // Active travel in viewport heights; the sticky stage adds one more viewport.
-export const HERO_SCROLL = { desktop: 4, mobile: 2.5 } as const;
+export const HERO_SCROLL = { desktop: 4, compact: 2.5, mobile: 1 } as const;
 const PHASE = {
   greetingErase: 0.14, ideaType: 0.23, transformStart: 0.18,
   transformAccelerate: 0.42, ideaErase: 0.63, finalType: 0.72,
@@ -185,7 +185,7 @@ function SignatureHero() {
       const required = vertical ? copyHeight + controlsHeight + 144 + padding + 16 : Math.max(copyHeight + controlsHeight + 12, 144) + padding;
       const textTooWide = widthProbe.getBoundingClientRect().width > (copy.current?.clientWidth ?? Infinity) + 1;
       const overflow = required > viewportHeight || textTooWide;
-      const nextDistance = motion && !failed && !overflow ? viewportHeight * (compact.matches ? HERO_SCROLL.mobile : HERO_SCROLL.desktop) : 0;
+      const nextDistance = motion && !failed && !overflow ? viewportHeight * (window.innerWidth <= 760 ? HERO_SCROLL.mobile : compact.matches ? HERO_SCROLL.compact : HERO_SCROLL.desktop) : 0;
       const changed = nextDistance !== runDistance || wrapper!.dataset.overflow !== String(overflow);
       runDistance = nextDistance;
       wrapper!.dataset.overflow = String(overflow);

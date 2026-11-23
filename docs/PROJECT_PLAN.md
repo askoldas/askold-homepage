@@ -54,6 +54,12 @@ The Implementer owns application/media changes and focused integrity checks; the
 
 Implemented in `src/content/projects.ts`, `src/content/work-categories.ts` and the shared case-study TSX/CSS module, plus four unchanged JPEG copies. The shared rendering adjustment only frames very tall covers and caps portrait figures at their native width; the existing nine project records are unchanged. TypeScript, focused ESLint, CSS parsing, image dimensions and byte-identical copy checks passed. Source checks confirm 11 unique cases, nine carousel projects, requested ordering/category membership and existing data-driven route, metadata, sitemap and related-work coverage. Focused source backups and hashes are retained in Git-ignored `.taste-skill/new-projects-before/`. No browser checks or build ran; stop for manual review.
 
+### Mobile hero pacing refinement
+
+The owner requested a substantially quicker mobile hero, aiming for a few natural swipes. At widths up to 760px, reduce active animation travel from 250svh to 100svh; the 100svh stage and its native departure remain, reducing the hero footprint from 350svh to 200svh. Preserve the original sculpture/bonsai sequence, typing, phase proportions, seek optimization, framing, native reversible scrolling and reduced-motion/static fallbacks. Normal desktop retains 400svh travel; short desktop windows retain their existing 250svh compact travel. The mobile final video frame and headline arrive earlier in absolute scroll distance. This is a targeted pacing iteration awaiting manual review, not final QA or Milestone 4 authorization.
+
+Implemented by the Implementer in the hero controller, with separate mobile and compact-desktop distance constants. TypeScript, focused lint and source/formula checks passed. No browser checks, production build, animation redesign, commit or push were performed for this pass.
+
 ## Current QA policy — explicit final approval required
 
 This policy supersedes all previous milestone-based QA schedules in `AGENTS.md` and project documentation. No intermediate milestone automatically triggers QA. Historical QA/build records below describe past work and do not authorize future testing. These restrictions apply to the orchestrator, specialists and skill workflows alike.
