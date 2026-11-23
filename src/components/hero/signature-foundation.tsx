@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "re
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mobileFirstScroll, type MobileRevealState } from "./mobile-first-scroll";
 import styles from "./signature-foundation.module.css";
 
 const EMAIL = "/#contact";
@@ -15,7 +16,7 @@ const IDEA = "Let's make your\nideas visible.";
 const FINAL_MESSAGE = "Then make them work\nfor your business.";
 
 // Active travel in viewport heights; the sticky stage adds one more viewport.
-export const HERO_SCROLL = { desktop: 4, compact: 2.5, mobile: 1 } as const;
+export const HERO_SCROLL = { desktop: 4, compact: 2.5 } as const;
 const PHASE = {
   greetingErase: 0.14, ideaType: 0.23, transformStart: 0.18,
   transformAccelerate: 0.42, ideaErase: 0.63, finalType: 0.72,
@@ -90,6 +91,8 @@ function SignatureHero() {
   const finalDescription = useRef<HTMLParagraphElement>(null);
   const initialHash = useRef<string | null>(null);
   const initialAnchorRestored = useRef(false);
+  const mobileReveal = useRef<MobileRevealState>({ started: false, completed: false, time: 0, textTime: 0 });
+  const [mobileMode, setMobileMode] = useState(false);
   const [motion, setMotion] = useState(false);
   const [decoded, setDecoded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -100,6 +103,14 @@ function SignatureHero() {
     update();
     preference.addEventListener("change", update);
     return () => preference.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const breakpoint = window.matchMedia("(max-width: 760px)");
+    const update = () => { setMobileMode(breakpoint.matches); setDecoded(false); };
+    update();
+    breakpoint.addEventListener("change", update);
+    return () => breakpoint.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -188,7 +199,7 @@ function SignatureHero() {
       const required = vertical ? copyHeight + controlsHeight + 144 + padding + 16 : Math.max(copyHeight + controlsHeight + 12, 144) + padding;
       const textTooWide = widthProbe.getBoundingClientRect().width > (copy.current?.clientWidth ?? Infinity) + 1;
       const overflow = required > viewportHeight || textTooWide;
-      const nextDistance = motion && !failed && !overflow ? viewportHeight * (window.innerWidth <= 760 ? HERO_SCROLL.mobile : compact.matches ? HERO_SCROLL.compact : HERO_SCROLL.desktop) : 0;
+      const nextDistance = motion && !failed && !overflow && !mobileMode ? viewportHeight * (compact.matches ? HERO_SCROLL.compact : HERO_SCROLL.desktop) : 0;
       const changed = nextDistance !== runDistance || wrapper!.dataset.overflow !== String(overflow);
       runDistance = nextDistance;
       wrapper!.dataset.overflow = String(overflow);
@@ -216,7 +227,8 @@ function SignatureHero() {
           artFrame.style.height = `${finalHeight}px`;
           wrapper!.dataset.framing = "cinematic";
           const poster = artFrame.querySelector("img");
-          if (poster?.getAttribute("src") !== SCULPTURE) poster?.setAttribute("src", SCULPTURE);
+          const source = mobileMode && mobileReveal.current.completed ? BONSAI : SCULPTURE;
+          if (poster?.getAttribute("src") !== source) poster?.setAttribute("src", source);
         } else {
           artFrame.style.removeProperty("width");
           artFrame.style.removeProperty("height");
@@ -226,7 +238,7 @@ function SignatureHero() {
           if (poster?.getAttribute("src") !== BONSAI) poster?.setAttribute("src", BONSAI);
         }
       }
-      controller.departure?.duration(runDistance > 0 ? sceneViewportHeight / runDistance : 1 / HERO_SCROLL.mobile);
+      controller.departure?.duration(runDistance > 0 ? sceneViewportHeight / runDistance : 1);
       if (changed) {
         controller.trigger?.refresh();
       }
@@ -261,7 +273,17 @@ function SignatureHero() {
       artFrame?.style.removeProperty("transform");
     }
     if (!motion || failed || !media) return cleanupLayout;
+    if (mobileMode) {
+      // Normal-flow mobile needs no post-pin hash correction on a later rotation.
+      initialAnchorRestored.current = true;
+      const cleanupMobile = mobileFirstScroll({ media, wrapper, firstLine: lineOne, secondLine: lineTwo,
+        state: mobileReveal.current, greeting: GREETING, idea: IDEA, bonsai: BONSAI,
+        decoded: setDecoded, failed: () => { setFailed(true); setDecoded(false); } });
+      return () => { cleanupMobile(); cleanupLayout(); };
+    }
 
+    media.pause();
+    media.playbackRate = 1;
     gsap.registerPlugin(ScrollTrigger);
     let shown = false;
     let visible = true;
@@ -318,7 +340,7 @@ function SignatureHero() {
 
     controller.timeline.to(playhead, {
       hold: 2,
-      duration: runDistance > 0 ? sceneViewportHeight / runDistance : 1 / HERO_SCROLL.mobile,
+      duration: runDistance > 0 ? sceneViewportHeight / runDistance : 1,
     }, PHASE.release);
     controller.departure = controller.timeline.recent() as gsap.core.Tween;
 
@@ -391,7 +413,7 @@ function SignatureHero() {
       media.removeEventListener("error", error);
       document.removeEventListener("visibilitychange", schedule);
     };
-  }, [motion, failed]);
+  }, [motion, failed, mobileMode]);
 
   function continueHero(event: MouseEvent<HTMLAnchorElement>) {
     const destination = document.getElementById("approach");

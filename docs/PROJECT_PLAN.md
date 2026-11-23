@@ -62,6 +62,12 @@ Implemented by the Implementer in the hero controller, with separate mobile and 
 
 Mobile copy follow-up: keep only the greeting and “Let's make your ideas visible.” Hold the second phrase through the bonsai reveal and exit, without erasing it for the desktop-only “Then make them work for your business.” transition. Mobile width measurement excludes the unused third phrase. Preserve the shortened mobile scroll range and the existing three-message desktop sequence, including short desktop windows.
 
+### Mobile first-scroll playback — supersedes mobile seeking
+
+The owner reports glitchy mobile scroll-linked playback and requests a simpler first-scroll sequence. Replace mobile frame seeking with one native muted inline playback of the original film, triggered by the first scroll while the hero is visible. Use a short independent greeting-to-idea typing sequence and hold the idea headline; keep the original subline throughout. Remove mobile animation scroll distance/sticky hold and the visible scroll cue, preserving a keyboard-reachable continuation link. Pause/resume for offscreen or hidden-page conditions, hold the final bonsai, and keep reduced-motion and media-failure fallbacks. Preserve sculpture dimensions and all desktop scroll behavior. The Implementer owns hero/controller changes; the orchestrator applies the installed `web-perf` skill through source inspection and maintains documentation. No browser audits, QA agents, production build or deployment are authorized by this iteration. Manual phone review remains required.
+
+Implemented in the hero TSX/CSS and a focused `mobile-first-scroll.ts` helper. Eight pixels of downward scrolling starts native playback at 0.75 speed (approximately 1.35 seconds), with direct text-node typing updates and no mobile scroll seeks or per-frame React updates. TypeScript, focused ESLint, CSS parsing and a mocked playback-lifecycle check passed; these checks do not establish rendered phone smoothness. Recovery copies and the local mock harness remain Git-ignored in `.taste-skill/mobile-first-scroll-before/`. No other homepage sections, dependencies, assets or production settings changed.
+
 ## Current QA policy — explicit final approval required
 
 This policy supersedes all previous milestone-based QA schedules in `AGENTS.md` and project documentation. No intermediate milestone automatically triggers QA. Historical QA/build records below describe past work and do not authorize future testing. These restrictions apply to the orchestrator, specialists and skill workflows alike.

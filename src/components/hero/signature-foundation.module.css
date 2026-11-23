@@ -61,6 +61,13 @@
   .actions { gap: 12px 20px; }
 }
 @media (max-width: 760px) {
+  .hero[data-motion="true"]:not([data-overflow="true"]) { height: 100svh; }
+  .hero[data-motion="true"]:not([data-overflow="true"]) .stage { position: relative; }
+  .description > p:first-child { opacity: 1 !important; visibility: visible !important; }
+  .description .finalDescription { opacity: 0 !important; visibility: hidden !important; }
+  .skipAnimation { opacity: 0; pointer-events: none; }
+  .skipAnimation:focus-visible { opacity: 1; pointer-events: auto; }
+  .skipAnimation svg { animation: none; }
   .header { left: 0; transform: none; min-height: 76px; padding: 12px 24px; padding-top: max(12px, env(safe-area-inset-top)); }
   .desktopNavigation { display: none; }
   .mobileNavigation { display: block; }
