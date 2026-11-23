@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "@/components/site/arrow-up-right";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mobileNativeFilm, type MobileFilmState } from "./mobile-native-film";
@@ -62,7 +63,7 @@ export function Header() {
     return <>
       <a href={WORK} onClick={close}>Work</a>
       <a href="/services" onClick={close}>Services</a>
-      <a href={EMAIL} onClick={close}>Contact <span aria-hidden="true">&#8599;</span></a>
+      <a href={EMAIL} onClick={close}>Contact <span aria-hidden="true"><ArrowUpRight /></span></a>
     </>;
   }
   return <header className={styles.header} ref={header}>
@@ -452,8 +453,8 @@ function SignatureHero() {
         </div>
         <div className={styles.controls} ref={controls}>
           <div className={styles.actions}>
-            <a className={styles.primary} href={EMAIL}>Let&apos;s talk <span aria-hidden="true">&#8599;</span></a>
-            <a className={styles.link} href={WORK}>View work <span aria-hidden="true">&#8599;</span></a>
+            <a className={styles.primary} href={EMAIL}>Let&apos;s talk <span aria-hidden="true"><ArrowUpRight /></span></a>
+            <a className={styles.link} href={WORK}>View work <span aria-hidden="true"><ArrowUpRight /></span></a>
           </div>
         </div>
         <a className={styles.skipAnimation} href="#approach" onClick={continueHero} aria-label="Continue to website content"><svg viewBox="0 0 24 36" width="24" height="36" aria-hidden="true" focusable="false"><path d="M12 4v27m-6-6 6 6 6-6" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
@@ -486,8 +487,8 @@ export function SignatureFoundation({ children }: { children?: ReactNode }) {
           <div className={styles.bridgeCopy}>
             <p>I bring design and development together to make clear, distinctive websites — from custom builds and e-commerce to ongoing optimization.</p>
             <div className={styles.actions}>
-              <a className={styles.link} href={WORK}>Explore my current portfolio <span aria-hidden="true">↗</span></a>
-              <a className={styles.link} href={EMAIL}>Discuss your project <span aria-hidden="true">↗</span></a>
+              <a className={styles.link} href={WORK}>Explore my current portfolio <span aria-hidden="true"><ArrowUpRight /></span></a>
+              <a className={styles.link} href={EMAIL}>Discuss your project <span aria-hidden="true"><ArrowUpRight /></span></a>
             </div>
           </div>
         </section>}

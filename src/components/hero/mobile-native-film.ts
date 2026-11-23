@@ -27,6 +27,7 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   let generation = 0;
   let pending: number | null = null;
   let abortRetried = false;
+  let awaitingGesture = false;
   let restore = state.direction !== null && !state.finished;
   let previousScroll = window.scrollY;
   let downTravel = 0;
@@ -62,21 +63,23 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   }
   function sample(direction: Direction, time: number) {
     const film = films[direction];
-    if (!usable() || state.direction !== direction || state.finished || film.paused || film.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || !Number.isFinite(film.duration)) return;
-    const progress = Math.min(1, Math.max(0, time / film.duration));
+    if (!usable() || restore || film.seeking || state.direction !== direction || state.finished || film.paused || film.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || !Number.isFinite(film.duration)) return;
+    const sampledTime = Math.max(state.time, time);
+    if (film.style.opacity === "1" && sampledTime <= state.time + .001) return;
+    const progress = Math.min(1, Math.max(0, sampledTime / film.duration));
     state.progress = direction === "forward" ? progress : 1 - progress;
-    state.time = time;
+    state.time = sampledTime;
     // Keep the outgoing decoded frame until this film has produced a frame.
     film.style.opacity = "1";
     films[direction === "forward" ? "reverse" : "forward"].style.opacity = "0";
     renderText();
   }
   function samples() {
-    if (!usable() || state.finished || !state.direction || frameRequest || animationRequest) return;
+    if (!usable() || state.finished || !state.direction) return;
     const direction = state.direction;
     const film = films[direction];
     if (film.paused) return;
-    if (typeof film.requestVideoFrameCallback === "function") {
+    if (typeof film.requestVideoFrameCallback === "function" && !frameRequest) {
       frameOwner = film;
       frameRequest = film.requestVideoFrameCallback((_now, metadata) => {
         frameRequest = 0;
@@ -84,8 +87,10 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
         sample(direction, metadata.mediaTime);
         samples();
       });
-    } else {
-      // Read playback time only; this fallback never seeks the media.
+    }
+    if (!animationRequest) {
+      // Playback-time fallback also runs when WebKit exposes but stalls frame callbacks.
+      // It only reads time; neither sampler seeks or updates React state.
       animationRequest = requestAnimationFrame(() => {
         animationRequest = 0;
         if (disposed || state.direction !== direction) return;
@@ -101,22 +106,17 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     generation++;
     pending = null;
     abortRetried = false;
+    awaitingGesture = false;
     state.direction = direction;
     state.finished = false;
     state.time = 0;
     restore = true;
   }
-  function blocked(direction: Direction) {
+  function blocked() {
     forward.pause();
     reverse.pause();
     stopSamples();
-    state.progress = direction === "forward" ? 1 : 0;
-    state.finished = true;
-    state.desired = direction;
-    forward.style.opacity = "0";
-    reverse.style.opacity = "0";
-    poster(state.progress);
-    renderText();
+    awaitingGesture = true;
   }
   function sync() {
     if (disposed) return;
@@ -137,13 +137,16 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     const direction = state.direction;
     if (!direction) return;
     const film = films[direction];
-    if (film.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || !Number.isFinite(film.duration)) return;
     if (restore) {
       // One setup seek per pass or breakpoint restore, never one per scroll/frame.
-      try { film.currentTime = Math.min(state.time, Math.max(0, film.duration - .005)); restore = false; }
-      catch { return; }
+      // A fresh pass at zero needs no metadata or seek before play starts buffering.
+      if (Math.abs(film.currentTime - state.time) < .003) restore = false;
+      else if (film.readyState >= HTMLMediaElement.HAVE_METADATA && Number.isFinite(film.duration)) {
+        try { film.currentTime = Math.min(state.time, Math.max(0, film.duration - .005)); restore = false; }
+        catch { /* Native play can still initiate metadata loading. */ }
+      }
     }
-    if (film.seeking || pending !== null) return;
+    if (pending !== null || awaitingGesture) return;
     if (!film.paused) { samples(); return; }
     const token = generation;
     pending = token;
@@ -158,12 +161,21 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
       pending = null;
       if (error instanceof DOMException && error.name === "AbortError") {
         if (usable() && !abortRetried) { abortRetried = true; sync(); }
-      } else if (usable()) blocked(direction);
+      } else if (error instanceof DOMException && error.name === "NotAllowedError") blocked();
+      else { forward.pause(); reverse.pause(); stopSamples(); failed(); }
     });
   }
   function request(direction: Direction) {
     state.desired = direction;
     // A running pass finishes first; the latest deliberate request wins.
+    sync();
+  }
+  function gesture(event: Event) {
+    if (!awaitingGesture || !usable() || !state.direction || state.finished || event.defaultPrevented) return;
+    if (event.target instanceof Element && event.target.closest("a, button, input, textarea, select, summary, [role='button']")) return;
+    awaitingGesture = false;
+    abortRetried = false;
+    // Keep play() in this actual touch/click/key event stack for iOS activation.
     sync();
   }
   function scroll() {
@@ -185,11 +197,19 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     const film = films[direction];
     film.pause();
     film.loop = false;
+    film.muted = true;
+    film.defaultMuted = true;
+    film.playsInline = true;
+    film.setAttribute("muted", "");
+    film.setAttribute("playsinline", "");
+    film.setAttribute("webkit-playsinline", "");
     film.playbackRate = .65;
     film.style.opacity = "0";
     const playing = () => {
       if (!usable() || state.direction !== direction || state.finished) { film.pause(); return; }
       abortRetried = false;
+      awaitingGesture = false;
+      sample(direction, film.currentTime);
       samples();
     };
     const ended = () => {
@@ -202,9 +222,9 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
       renderText();
       sync();
     };
-    const timeupdate = () => { if (typeof film.requestVideoFrameCallback !== "function") sample(direction, film.currentTime); };
+    const timeupdate = () => sample(direction, film.currentTime);
     const error = () => { if (!disposed) { forward.pause(); reverse.pause(); stopSamples(); failed(); } };
-    const events = { playing, ended, timeupdate, error, loadeddata: sync, canplay: sync, seeked: sync };
+    const events = { playing, ended, timeupdate, error, loadedmetadata: sync, loadeddata: sync, canplay: sync, seeked: sync };
     for (const [name, handler] of Object.entries(events)) film.addEventListener(name, handler);
     cleanups.push(() => { for (const [name, handler] of Object.entries(events)) film.removeEventListener(name, handler); });
   }
@@ -216,6 +236,9 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   layoutObserver.observe(wrapper, { attributes: true, attributeFilter: ["data-overflow"] });
   document.addEventListener("visibilitychange", sync);
   window.addEventListener("scroll", scroll, { passive: true });
+  wrapper.addEventListener("touchend", gesture, { passive: true });
+  wrapper.addEventListener("click", gesture);
+  wrapper.addEventListener("keydown", gesture);
   sync();
   return () => {
     disposed = true;
@@ -230,6 +253,9 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     layoutObserver.disconnect();
     document.removeEventListener("visibilitychange", sync);
     window.removeEventListener("scroll", scroll);
+    wrapper.removeEventListener("touchend", gesture);
+    wrapper.removeEventListener("click", gesture);
+    wrapper.removeEventListener("keydown", gesture);
     write(greeting, greeting.length);
   };
 }
