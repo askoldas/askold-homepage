@@ -61,6 +61,16 @@ Chrome-decoded initial, middle and final frames confirm the same left-facing scu
 
 Both existing fallback posters were regenerated from the selected clip at 0.005s and duration minus 0.005s, at native 480×720, using unfiltered WebP quality 0.94: `sculpture-poster.webp` 35,426 bytes and `bonsai-poster.webp` 38,402 bytes. Original files in the reference repository remain untouched. Decoded comparison frames are local, Git-ignored review evidence under `.taste-skill/hero-targeted-2026-11-20/`.
 
+### Mobile reverse-playback derivative
+
+Owner-approved `public/media/hero/intro-reverse.mp4` reverses all 68 frames of the copied non-vignetted original, without resizing or changing the artwork. H.264/yuv420p, 480×720, 67fps, approximately 1.015 seconds, 481,661 bytes; SHA-256 `b359f492a9fc2b8f9517424ec803eae6e93f37a2fb038b0495222580506a22dd`. This is a high-quality re-encode for native reverse-direction playback, not a byte-identical copy. Offline FFmpeg comparison with a decoded reversal of the original measured average PSNR 49.346477 dB; this does not establish rendered phone performance. The original's SHA-256 remains unchanged. Only motion-enabled mobile mounts/preloads the reverse clip; desktop continues using the unchanged original.
+
+Reproduction command (FFmpeg executable can be supplied from the isolated ignored tools folder):
+
+```sh
+ffmpeg -hide_banner -loglevel error -i public/media/hero/intro-original.mp4 -vf reverse -an -c:v libx264 -preset slow -crf 12 -pix_fmt yuv420p -r 67 -movflags +faststart public/media/hero/intro-reverse.mp4
+```
+
 ## Hero implementation inventory
 
 - `src/components/hero/HeroSection.tsx`: GSAP ScrollTrigger, original `intro.mp4`, intro/outro refs, 50ms-per-character opening type effect and responsive viewport variable handler.

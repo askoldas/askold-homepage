@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "re
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mobileNativeFilm, type MobileFilmState } from "./mobile-native-film";
 import styles from "./signature-foundation.module.css";
 
 const EMAIL = "/#contact";
@@ -82,6 +83,7 @@ function SignatureHero() {
   const copy = useRef<HTMLDivElement>(null);
   const controls = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+  const reverseVideo = useRef<HTMLVideoElement>(null);
   const firstLine = useRef<HTMLSpanElement>(null);
   const secondLine = useRef<HTMLSpanElement>(null);
   const artwork = useRef<HTMLDivElement>(null);
@@ -90,6 +92,7 @@ function SignatureHero() {
   const finalDescription = useRef<HTMLParagraphElement>(null);
   const initialHash = useRef<string | null>(null);
   const initialAnchorRestored = useRef(false);
+  const mobileFilm = useRef<MobileFilmState>({ progress: 0, direction: null, desired: null, finished: true, time: 0 });
   const [mobileMode, setMobileMode] = useState(false);
   const [motion, setMotion] = useState(false);
   const [decoded, setDecoded] = useState(false);
@@ -225,7 +228,8 @@ function SignatureHero() {
           artFrame.style.height = `${finalHeight}px`;
           wrapper!.dataset.framing = "cinematic";
           const poster = artFrame.querySelector("img");
-          if (poster?.getAttribute("src") !== SCULPTURE) poster?.setAttribute("src", SCULPTURE);
+          const source = mobileMode && mobileFilm.current.progress >= 1 ? BONSAI : SCULPTURE;
+          if (poster?.getAttribute("src") !== source) poster?.setAttribute("src", source);
         } else {
           artFrame.style.removeProperty("width");
           artFrame.style.removeProperty("height");
@@ -270,6 +274,25 @@ function SignatureHero() {
       artFrame?.style.removeProperty("transform");
     }
     if (!motion || failed || !media) return cleanupLayout;
+    if (mobileMode && reverseVideo.current) {
+      const cleanupMobile = mobileNativeFilm({ forward: media, reverse: reverseVideo.current, wrapper, stage: panel,
+        firstLine: lineOne, secondLine: lineTwo, state: mobileFilm.current, greeting: GREETING,
+        idea: IDEA, sculpture: SCULPTURE, bonsai: BONSAI, failed: () => { setFailed(true); setDecoded(false); } });
+      if (!initialAnchorRestored.current) {
+        initialAnchorRestored.current = true;
+        const hash = initialHash.current;
+        if (hash && hash !== "#") anchorRequest = requestAnimationFrame(() => {
+          if (disposed) return;
+          let id: string;
+          try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
+          const destination = document.getElementById(id);
+          if (!destination) return;
+          destination.scrollIntoView({ behavior: "instant", block: "start" });
+          if (id === "approach") focusApproachHeading(destination);
+        });
+      }
+      return () => { cleanupMobile(); cancelAnimationFrame(anchorRequest); cleanupLayout(); };
+    }
 
     media.pause();
     media.playbackRate = 1;
@@ -278,7 +301,6 @@ function SignatureHero() {
     let visible = true;
     let ready = media.readyState >= HTMLMediaElement.HAVE_METADATA;
     let raf = 0;
-    let lastMobileTarget: number | null = null;
     const greeting = GREETING;
     const idea = IDEA;
     const finalMessage = FINAL_MESSAGE;
@@ -293,12 +315,9 @@ function SignatureHero() {
       raf = 0;
       if (disposed || wrapper!.dataset.overflow === "true" || !ready || !visible || document.hidden || media!.seeking || media!.readyState < HTMLMediaElement.HAVE_CURRENT_DATA || !Number.isFinite(media!.duration)) return;
       // Verified 67 fps original: this point remains inside its final frame.
-      const endpoint = Math.max(0, media!.duration - 0.005);
-      const rawTarget = playhead.frame * endpoint;
-      const target = mobileCopy ? playhead.frame >= 1 ? endpoint : Math.min(endpoint, Math.round(rawTarget * 67) / 67) : rawTarget;
-      if (mobileCopy && target === lastMobileTarget) { reveal(); return; }
+      const target = playhead.frame * Math.max(0, media!.duration - 0.005);
       if (Math.abs(media!.currentTime - target) < 0.003) { reveal(); return; }
-      try { media!.currentTime = target; if (mobileCopy) lastMobileTarget = target; } catch { /* Readiness events retry exact seeks once data becomes available. */ }
+      try { media!.currentTime = target; } catch { /* Readiness events retry exact seeks once data becomes available. */ }
     }
     function schedule() { if (!disposed && !raf) raf = requestAnimationFrame(pump); }
     function metadata() { ready = true; schedule(); }
@@ -366,7 +385,7 @@ function SignatureHero() {
       animation: controller.timeline,
       start: "top top",
       end: () => `+=${Math.max(1, runDistance + sceneViewportHeight)}`,
-      scrub: mobileMode ? true : 0.3,
+      scrub: 0.3,
       onRefresh: reconcileRefresh,
     });
     controller.timeline.progress(controller.trigger.progress);
@@ -446,6 +465,7 @@ function SignatureHero() {
             <img className={styles.poster} src={failed ? BONSAI : SCULPTURE} alt="" width="480" height="720" fetchPriority="high" decoding="async" />
           </picture>
           {motion && !failed ? <video ref={video} className={styles.video} data-decoded={decoded} src="/media/hero/intro-original.mp4" poster={SCULPTURE} preload="auto" muted playsInline disablePictureInPicture tabIndex={-1} /> : null}
+          {motion && !failed && mobileMode ? <video ref={reverseVideo} className={styles.video} src="/media/hero/intro-reverse.mp4" preload="auto" muted playsInline disablePictureInPicture tabIndex={-1} /> : null}
           </div>
           <div className={styles.openAccents} aria-hidden="true"><span className={styles.verticalAccent} /><span className={styles.horizontalAccent} /></div>
         </div>
