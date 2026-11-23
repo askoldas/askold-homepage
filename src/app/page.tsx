@@ -1,10 +1,11 @@
 import { SignatureFoundation } from "@/components/hero/signature-foundation";
 import { HomeContent } from "@/components/site/home-content";
 import { Footer } from "@/components/site/site-shell";
+import { MobileHomeActions } from "@/components/site/mobile-home-actions";
 import { jsonLd, pageMetadata, siteOrigin } from "@/lib/seo";
 
 export const metadata = pageMetadata("Independent web design & development", "Brand identity, web design and custom development by Askold Makrikov. Explore selected work and start a project by email or WhatsApp.", "/");
 
 export default function HomePage() {
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd({ "@context": "https://schema.org", "@type": "Person", name: "Askold Makrikov", url: siteOrigin, jobTitle: "Independent web designer and developer" }) }} /><SignatureFoundation><HomeContent /></SignatureFoundation><Footer /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd({ "@context": "https://schema.org", "@type": "Person", name: "Askold Makrikov", url: siteOrigin, jobTitle: "Independent web designer and developer" }) }} /><SignatureFoundation><HomeContent /></SignatureFoundation><Footer homeActionBar /><MobileHomeActions /></>;
 }

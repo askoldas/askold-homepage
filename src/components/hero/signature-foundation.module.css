@@ -80,7 +80,7 @@
   .copy { grid-column: 1; grid-row: 1; }
   .title { font-size: clamp(36px, 10vw, 44px); }
   .description { margin-top: 12px; max-width: 440px; }
-  .controls { grid-column: 1; grid-row: 3; padding-bottom: 0; }
+  .controls { grid-column: 1; grid-row: 3; padding-bottom: 0; visibility: hidden; }
   .controls .actions { gap: 8px 20px; }
   .primary { padding: 6px 14px; }
   .artwork { grid-column: 1; grid-row: 2; }
