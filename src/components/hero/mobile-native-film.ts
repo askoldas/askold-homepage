@@ -1,3 +1,5 @@
+import { mobileFirstSwipe } from "./mobile-first-swipe";
+
 type Direction = "forward" | "reverse";
 
 export interface MobileFilmState {
@@ -6,6 +8,7 @@ export interface MobileFilmState {
   desired: Direction | null;
   finished: boolean;
   time: number;
+  swipeGateDone?: boolean;
 }
 
 export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, secondLine, state, greeting, idea, sculpture, bonsai, failed }: {
@@ -35,12 +38,15 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   let frameOwner: HTMLVideoElement | null = null;
   let frameRequest = 0;
   let animationRequest = 0;
+  let swipeGate: ReturnType<typeof mobileFirstSwipe> | null = null;
+  const overlays = Array.from(document.querySelectorAll<HTMLElement>("dialog, header details"));
+  function overlayOpen() { return overlays.some(element => element.hasAttribute("open")); }
 
   function visible() {
     const bounds = stage.getBoundingClientRect();
     return bounds.bottom > 0 && bounds.top < window.innerHeight;
   }
-  function usable() { return !disposed && wrapper.dataset.overflow !== "true" && visible() && !document.hidden; }
+  function usable() { return !disposed && wrapper.dataset.overflow !== "true" && visible() && !document.hidden && !overlayOpen(); }
   function write(message: string, count: number) {
     const lines = message.slice(0, Math.round(count)).split("\n");
     if (firstLine) firstLine.textContent = lines[0] ?? "";
@@ -117,10 +123,12 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     reverse.pause();
     stopSamples();
     awaitingGesture = true;
+    swipeGate?.bypass();
   }
   function sync() {
     if (disposed) return;
     if (!usable()) {
+      swipeGate?.bypass();
       forward.pause();
       reverse.pause();
       stopSamples();
@@ -162,7 +170,7 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
       if (error instanceof DOMException && error.name === "AbortError") {
         if (usable() && !abortRetried) { abortRetried = true; sync(); }
       } else if (error instanceof DOMException && error.name === "NotAllowedError") blocked();
-      else { forward.pause(); reverse.pause(); stopSamples(); failed(); }
+      else { swipeGate?.bypass(); forward.pause(); reverse.pause(); stopSamples(); failed(); }
     });
   }
   function request(direction: Direction) {
@@ -182,6 +190,7 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     const current = window.scrollY;
     const delta = current - previousScroll;
     previousScroll = current;
+    if (current > 2 && swipeGate && !swipeGate.holding) swipeGate.bypass();
     if (!usable()) { if (!visible()) leftHero = true; downTravel = 0; return; }
     if (delta < 0 && (current <= 2 || leftHero)) {
       leftHero = false;
@@ -220,10 +229,11 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
       state.finished = true;
       poster(state.progress);
       renderText();
+      if (direction === "forward") swipeGate?.complete();
       sync();
     };
     const timeupdate = () => sample(direction, film.currentTime);
-    const error = () => { if (!disposed) { forward.pause(); reverse.pause(); stopSamples(); failed(); } };
+    const error = () => { if (!disposed) { swipeGate?.bypass(); forward.pause(); reverse.pause(); stopSamples(); failed(); } };
     const events = { playing, ended, timeupdate, error, loadedmetadata: sync, loadeddata: sync, canplay: sync, seeked: sync };
     for (const [name, handler] of Object.entries(events)) film.addEventListener(name, handler);
     cleanups.push(() => { for (const [name, handler] of Object.entries(events)) film.removeEventListener(name, handler); });
@@ -234,6 +244,13 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   observer.observe(stage);
   const layoutObserver = new MutationObserver(sync);
   layoutObserver.observe(wrapper, { attributes: true, attributeFilter: ["data-overflow"] });
+  const overlayObserver = new MutationObserver(sync);
+  for (const element of overlays) overlayObserver.observe(element, { attributes: true, attributeFilter: ["open"] });
+  swipeGate = mobileFirstSwipe({ stage,
+    eligible: () => usable() && !awaitingGesture && !state.swipeGateDone && window.scrollY <= 2,
+    start: () => request("forward"),
+    released: () => { state.swipeGateDone = true; },
+  });
   document.addEventListener("visibilitychange", sync);
   window.addEventListener("scroll", scroll, { passive: true });
   wrapper.addEventListener("touchend", gesture, { passive: true });
@@ -242,6 +259,7 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
   sync();
   return () => {
     disposed = true;
+    swipeGate.dispose();
     generation++;
     if (state.direction && !state.finished) state.time = films[state.direction].currentTime;
     forward.pause();
@@ -251,6 +269,7 @@ export function mobileNativeFilm({ forward, reverse, wrapper, stage, firstLine, 
     for (const cleanup of cleanups) cleanup();
     observer.disconnect();
     layoutObserver.disconnect();
+    overlayObserver.disconnect();
     document.removeEventListener("visibilitychange", sync);
     window.removeEventListener("scroll", scroll);
     wrapper.removeEventListener("touchend", gesture);
